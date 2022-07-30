@@ -2,18 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:tech_blog_app/constant/colors.dart';
 import 'package:tech_blog_app/gen/assets.gen.dart';
-import 'package:tech_blog_app/pages/main_screen.dart';
 
-import 'main_screen.dart';
+import 'main_view.dart';
 
-class SplashScreen extends StatefulWidget {
-  const SplashScreen({Key? key}) : super(key: key);
+class SplashView extends StatefulWidget {
+  const SplashView({Key? key}) : super(key: key);
 
   @override
-  State<SplashScreen> createState() => _SplashScreenState();
+  State<SplashView> createState() => _SplashViewState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
+class _SplashViewState extends State<SplashView> {
   //const SplashScreen ({ Key? key }) : super(key: key);
   @override
   void initState() {
@@ -22,7 +21,7 @@ class _SplashScreenState extends State<SplashScreen> {
       Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => MainScreen(),
+            builder: (context) => MainView(),
           ));
     });
   }

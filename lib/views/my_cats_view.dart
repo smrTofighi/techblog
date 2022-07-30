@@ -8,14 +8,14 @@ import 'package:tech_blog_app/models/fake_data.dart';
 
 import '../constant/colors.dart';
 
-class MyCats extends StatefulWidget {
-  const MyCats({Key? key}) : super(key: key);
+class MyCatsView extends StatefulWidget {
+  const MyCatsView({Key? key}) : super(key: key);
 
   @override
-  State<MyCats> createState() => _MyCatsState();
+  State<MyCatsView> createState() => _MyCatsViewState();
 }
 
-class _MyCatsState extends State<MyCats> {
+class _MyCatsViewState extends State<MyCatsView> {
   @override
   Widget build(BuildContext context) {
     var textTheme = Theme.of(context).textTheme;

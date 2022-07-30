@@ -5,8 +5,8 @@ import 'package:tech_blog_app/gen/assets.gen.dart';
 
 import '../constant/component.dart';
 
-class ProflieScreen extends StatelessWidget {
-  const ProflieScreen(
+class ProflieView extends StatelessWidget {
+  const ProflieView(
       {Key? key,
       required this.size,
       required this.bodyMargin,

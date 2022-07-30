@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:tech_blog_app/constant/strings.dart';
 import 'package:tech_blog_app/gen/assets.gen.dart';
-import 'package:tech_blog_app/pages/my_cats.dart';
+import 'package:tech_blog_app/views/my_cats_view.dart';
 import 'package:validators/validators.dart';
 
-class RegisterInto extends StatelessWidget {
-  const RegisterInto({Key? key}) : super(key: key);
+class RegisterIntoView extends StatelessWidget {
+  const RegisterIntoView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -149,7 +149,7 @@ class RegisterInto extends StatelessWidget {
                               ),
                               ElevatedButton(
                                 onPressed: () {
-                                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MyCats(),));
+                                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const MyCatsView(),));
                                 },
                                 child: const Text("ادامه"),
                               ),

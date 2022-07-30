@@ -4,14 +4,14 @@ import 'package:share_plus/share_plus.dart';
 import 'package:tech_blog_app/constant/colors.dart';
 import 'package:tech_blog_app/constant/component.dart';
 import 'package:tech_blog_app/gen/assets.gen.dart';
-import 'package:tech_blog_app/pages/profile_screen.dart';
+import 'package:tech_blog_app/views/profile_view.dart';
 
 import '../constant/strings.dart';
-import 'home_screen.dart';
+import 'home_view.dart';
 
 final GlobalKey<ScaffoldState> _key = GlobalKey();
 
-class MainScreen extends StatelessWidget {
+class MainView extends StatelessWidget {
   RxInt selectedPageIndex = 0.obs;
   @override
   Widget build(BuildContext context) {
@@ -117,11 +117,11 @@ class MainScreen extends StatelessWidget {
                 () => IndexedStack(
                   index: selectedPageIndex.value,
                   children: [
-                    HomeScreen(
+                    HomeView(
                         size: size,
                         bodyMargin: bodyMargin,
                         textTheme: textTheme),
-                    ProflieScreen(
+                    ProflieView(
                         size: size,
                         bodyMargin: bodyMargin,
                         textTheme: textTheme),

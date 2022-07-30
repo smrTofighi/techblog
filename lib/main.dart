@@ -2,10 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:tech_blog_app/constant/colors.dart';
-import 'package:tech_blog_app/pages/main_screen.dart';
-import 'package:tech_blog_app/pages/my_cats.dart';
-import 'package:tech_blog_app/pages/register_into.dart';
-import 'package:tech_blog_app/pages/splash_screen.dart';
+import 'package:tech_blog_app/views/splash_view.dart';
 
 void main() {
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
@@ -113,6 +110,6 @@ class TecApp extends StatelessWidget {
                 fontWeight: FontWeight.w700,
               )),
         ),
-        home: MainScreen());
+        home: const SplashView());
   }
 }

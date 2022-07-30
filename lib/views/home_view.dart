@@ -5,8 +5,8 @@ import 'package:tech_blog_app/constant/strings.dart';
 import 'package:tech_blog_app/gen/assets.gen.dart';
 import 'package:tech_blog_app/models/fake_data.dart';
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen(
+class HomeView extends StatelessWidget {
+  const HomeView(
       {Key? key,
       required this.size,
       required this.bodyMargin,
