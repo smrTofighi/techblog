@@ -5,10 +5,13 @@ import '../gen/assets.gen.dart';
 import 'colors.dart';
 import '../gen/assets.gen.dart';
 
-launchUrl(String url) async{
+myLaunchUrl(String url) async{
   var uri = Uri.parse(url);
   if(await canLaunchUrl(uri)){
-    await launchUrl(url);
+    await launchUrl(uri);
+  }
+  else{
+    await launchUrl(uri);
   }
 }
 

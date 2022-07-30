@@ -71,7 +71,7 @@ class MainScreen extends StatelessWidget {
                     style: textTheme.headline4,
                   ),
                   onTap: () {
-                    launchUrl(ValueStrings.techBlogGithubUrl);
+                    myLaunchUrl(ValueStrings.techBlogGithubUrl);
                   },
                 ),
                 const Divider(
