@@ -22,6 +22,10 @@ class HomeViewController extends GetxController{
       response.data['top_visited'].forEach((element){
       topVisitedList.add(ArticleModel.fromJson(element));
     });
+
+    response.data['top_podcasts'].forEach((element){
+      topPadcasts.add(PadcastModel.fromJson(element));
+    });
     }
 
   }

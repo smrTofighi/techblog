@@ -55,7 +55,7 @@ class HomeView extends StatelessWidget {
             SeeMorePadcast(bodyMargin: bodyMargin, textTheme: textTheme),
 
             //? padcats posts ----------
-            HomeViewPadCastList(bodyMargin: bodyMargin, size: size),
+            topPadcasts(),
 
             const MySizedBox(height: 60),
           ],
@@ -158,6 +158,60 @@ class HomeView extends StatelessWidget {
               itemCount: homeViewController.topVisitedList.length,
               scrollDirection: Axis.horizontal,
             )),
+      ),
+    );
+  }
+
+  Widget topPadcasts() {
+    return SizedBox(
+      height: size.height / 3.5,
+      child: Obx(
+        () => ListView.builder(
+          itemBuilder: (context, index) {
+            return Padding(
+              padding: EdgeInsets.only(right: index == 0 ? bodyMargin : 15),
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: SizedBox(
+                      height: size.height / 5.3,
+                      width: size.width / 2.4,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(16.0),
+                          ),
+                          image: DecorationImage(
+                            image: NetworkImage(
+                              homeViewController.topPadcasts[index].poster!,
+                            ),
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: size.width / 2.4,
+                    child: Align(
+                      child: Text(
+                        homeViewController.topPadcasts[index].title!,
+                        style: const TextStyle(
+                            fontWeight: FontWeight.w700, fontSize: 16),
+                      ),
+                      alignment: Alignment.center,
+                    ),
+                  ),
+                ],
+              ),
+            );
+          },
+
+          //? --------------------
+          itemCount: homeViewController.topPadcasts.length,
+          scrollDirection: Axis.horizontal,
+        ),
       ),
     );
   }
@@ -350,67 +404,6 @@ class HomeViewTagList extends StatelessWidget {
               ));
         },
         itemCount: tagList.length,
-        scrollDirection: Axis.horizontal,
-      ),
-    );
-  }
-}
-
-class HomeViewPadCastList extends StatelessWidget {
-  const HomeViewPadCastList(
-      {Key? key, required this.bodyMargin, required this.size})
-      : super(key: key);
-
-  final Size size;
-  final double bodyMargin;
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: size.height / 3.5,
-      child: ListView.builder(
-        itemBuilder: (context, index) {
-          return Padding(
-            padding: EdgeInsets.only(right: index == 0 ? bodyMargin : 15),
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: SizedBox(
-                    height: size.height / 5.3,
-                    width: size.width / 2.4,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.all(
-                          Radius.circular(16.0),
-                        ),
-                        image: DecorationImage(
-                          image: NetworkImage(
-                            padCastList[index].imageUrl.toString(),
-                          ),
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  width: size.width / 2.4,
-                  child: Align(
-                    child: Text(
-                      padCastList[index].title.toString(),
-                      style: const TextStyle(
-                          fontWeight: FontWeight.w700, fontSize: 16),
-                    ),
-                    alignment: Alignment.center,
-                  ),
-                ),
-              ],
-            ),
-          );
-        },
-
-        //? --------------------
-        itemCount: blogList.getRange(0, 5).length,
         scrollDirection: Axis.horizontal,
       ),
     );
