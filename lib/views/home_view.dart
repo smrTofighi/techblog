@@ -1,4 +1,6 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:tech_blog_app/constant/component.dart';
 import 'package:tech_blog_app/constant/colors.dart';
@@ -81,19 +83,23 @@ class HomeView extends StatelessWidget {
                           width: size.width / 2.4,
                           child: Stack(
                             children: [
-                              Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: const BorderRadius.all(
-                                    Radius.circular(16.0),
-                                  ),
-                                  image: DecorationImage(
-                                      image: NetworkImage(
-                                        homeViewController
-                                            .topVisitedList[index].image!,
+                              CachedNetworkImage(
+                                imageUrl: homeViewController
+                                    .topVisitedList[index].image!,
+                                //? ----------------------
+
+                                imageBuilder: ((context, imageProvider) =>
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: const BorderRadius.all(
+                                          Radius.circular(16.0),
+                                        ),
+                                        image: DecorationImage(
+                                          image: imageProvider,
+                                          fit: BoxFit.cover,
+                                        ),
                                       ),
-                                      fit: BoxFit.cover),
-                                ),
-                                foregroundDecoration: const BoxDecoration(
+                                      foregroundDecoration: const BoxDecoration(
                                   borderRadius: BorderRadius.all(
                                     Radius.circular(16.0),
                                   ),
@@ -102,6 +108,24 @@ class HomeView extends StatelessWidget {
                                     begin: Alignment.bottomCenter,
                                     end: Alignment.topCenter,
                                   ),
+                                ),
+                                    )
+                                    ),
+
+                                //? ---------------------
+
+                                placeholder: (context, url) =>
+                                    const SpinKitFoldingCube(
+                                  color: SolidColors.primery,
+                                  size: 32.0,
+                                ),
+                                //? ---------------------
+
+                                errorWidget: (context, url, error) =>
+                                    const Icon(
+                                  Icons.image_not_supported_outlined,
+                                  size: 50.0,
+                                  color: Colors.grey,
                                 ),
                               ),
                               Positioned(
@@ -177,17 +201,34 @@ class HomeView extends StatelessWidget {
                     child: SizedBox(
                       height: size.height / 5.3,
                       width: size.width / 2.4,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(16.0),
-                          ),
-                          image: DecorationImage(
-                            image: NetworkImage(
-                              homeViewController.topPadcasts[index].poster!,
-                            ),
-                            fit: BoxFit.cover,
-                          ),
+                      child: CachedNetworkImage(
+                        imageUrl: homeViewController.topPadcasts[index].poster!,
+                        //? ----------------------
+
+                        imageBuilder: ((context, imageProvider) => Container(
+                              decoration: BoxDecoration(
+                                borderRadius: const BorderRadius.all(
+                                  Radius.circular(16.0),
+                                ),
+                                image: DecorationImage(
+                                  image: imageProvider,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            )),
+
+                        //? ---------------------
+
+                        placeholder: (context, url) => const SpinKitFoldingCube(
+                          color: SolidColors.primery,
+                          size: 32.0,
+                        ),
+                        //? ---------------------
+
+                        errorWidget: (context, url, error) => const Icon(
+                          Icons.image_not_supported_outlined,
+                          size: 50.0,
+                          color: Colors.grey,
                         ),
                       ),
                     ),
@@ -199,6 +240,8 @@ class HomeView extends StatelessWidget {
                         homeViewController.topPadcasts[index].title!,
                         style: const TextStyle(
                             fontWeight: FontWeight.w700, fontSize: 16),
+                            overflow: TextOverflow.ellipsis,
+                          maxLines: 2,
                       ),
                       alignment: Alignment.center,
                     ),
