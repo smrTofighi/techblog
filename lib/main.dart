@@ -111,6 +111,6 @@ class TecApp extends StatelessWidget {
                 fontWeight: FontWeight.w700,
               )),
         ),
-        home: MainView());
+        home: const SplashView());
   }
 }

@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:tech_blog_app/constant/colors.dart';
 import 'package:tech_blog_app/constant/component.dart';
-import 'package:tech_blog_app/controllers/home_view_controller.dart';
 import 'package:tech_blog_app/gen/assets.gen.dart';
 import 'package:tech_blog_app/views/profile_view.dart';
 

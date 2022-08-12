@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:get/get.dart';
 import 'package:tech_blog_app/constant/colors.dart';
 import 'package:tech_blog_app/gen/assets.gen.dart';
 
+import '../controllers/home_view_controller.dart';
 import 'main_view.dart';
 
 class SplashView extends StatefulWidget {
