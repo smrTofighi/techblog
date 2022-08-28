@@ -1,10 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:tech_blog_app/constant/component.dart';
 import 'package:tech_blog_app/constant/strings.dart';
+import 'package:tech_blog_app/controllers/home_view_controller.dart';
 import 'package:tech_blog_app/gen/assets.gen.dart';
 import 'package:tech_blog_app/models/fake_data.dart';
+import 'package:tech_blog_app/models/tag_model.dart';
 
 import '../constant/colors.dart';
 
@@ -86,7 +89,7 @@ class _MyCatsViewState extends State<MyCatsView> {
                             child: MainTags(
                               textTheme: textTheme,
                               index: index,
-                              listItem: tagList,
+                              listItem: Get.find<HomeViewController>().tagsList,
                             ),
                           );
                         },

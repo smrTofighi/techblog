@@ -3,10 +3,10 @@ import 'package:get/get.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:tech_blog_app/constant/colors.dart';
 import 'package:tech_blog_app/constant/component.dart';
+import 'package:tech_blog_app/constant/strings.dart';
 import 'package:tech_blog_app/gen/assets.gen.dart';
-import 'package:tech_blog_app/views/profile_view.dart';
+import 'package:tech_blog_app/views/main_view/profile_view.dart';
 
-import '../constant/strings.dart';
 import 'home_view.dart';
 
 final GlobalKey<ScaffoldState> _key = GlobalKey();

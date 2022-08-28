@@ -5,10 +5,10 @@ import 'package:get/get.dart';
 import 'package:tech_blog_app/constant/component.dart';
 import 'package:tech_blog_app/constant/colors.dart';
 import 'package:tech_blog_app/constant/strings.dart';
+import 'package:tech_blog_app/controllers/home_view_controller.dart';
 import 'package:tech_blog_app/gen/assets.gen.dart';
 import 'package:tech_blog_app/models/fake_data.dart';
 
-import '../controllers/home_view_controller.dart';
 
 class HomeView extends StatelessWidget {
   HomeView(
@@ -41,9 +41,7 @@ class HomeView extends StatelessWidget {
                         const MySizedBox(height: 16),
 
                         //? hashtag ----------------
-                        HomeViewTagList(
-                            bodyMargin: bodyMargin, textTheme: textTheme),
-
+                        tags(),
                         //?-------------------------
                         const MySizedBox(height: 32),
 
@@ -348,6 +346,26 @@ class HomeView extends StatelessWidget {
       ],
     );
   }
+
+  Widget tags(){
+    return SizedBox(
+      height: 60,
+      child: ListView.builder(
+        itemBuilder: (context, index) {
+          return Padding(
+              padding:
+                  EdgeInsets.fromLTRB(0, 8, index == 0 ? bodyMargin : 15, 8),
+              child: MainTags(
+                textTheme: textTheme,
+                index: index,
+                listItem: homeViewController.tagsList,
+              ));
+        },
+        itemCount: homeViewController.tagsList.length,
+        scrollDirection: Axis.horizontal,
+      ),
+    );
+  }
 }
 
 class MySizedBox extends StatelessWidget {
@@ -433,31 +451,4 @@ class SeeMoreBlog extends StatelessWidget {
   }
 }
 
-class HomeViewTagList extends StatelessWidget {
-  const HomeViewTagList(
-      {Key? key, required this.textTheme, required this.bodyMargin})
-      : super(key: key);
 
-  final TextTheme textTheme;
-  final double bodyMargin;
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 60,
-      child: ListView.builder(
-        itemBuilder: (context, index) {
-          return Padding(
-              padding:
-                  EdgeInsets.fromLTRB(0, 8, index == 0 ? bodyMargin : 15, 8),
-              child: MainTags(
-                textTheme: textTheme,
-                index: index,
-                listItem: tagList,
-              ));
-        },
-        itemCount: tagList.length,
-        scrollDirection: Axis.horizontal,
-      ),
-    );
-  }
-}

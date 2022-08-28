@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:tech_blog_app/models/data_model_hashtag.dart';
+import 'package:get/get.dart';
+import 'package:tech_blog_app/constant/text_style.dart';
+import 'package:tech_blog_app/controllers/home_view_controller.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../gen/assets.gen.dart';
 import 'colors.dart';
-import '../gen/assets.gen.dart';
+
 
 myLaunchUrl(String url) async{
   var uri = Uri.parse(url);
@@ -15,6 +17,39 @@ myLaunchUrl(String url) async{
   }
 }
 
+
+ PreferredSize appBar(String title) {
+    return PreferredSize(
+          preferredSize: const Size.fromHeight(85),
+          child: Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: AppBar(
+                backgroundColor: Colors.transparent,
+                elevation: 0,
+                actions: const [
+            Padding(
+              padding: EdgeInsets.only(left: 16.0),
+              child: Center(
+                  child: Text(
+                'مقالات جدید',
+                style: TextStyles.appBarTextStyle,
+              )),
+            )
+                ],
+                leading: Padding(
+            padding: const EdgeInsets.only(left: 16.0),
+            child: Container(
+              height: 40,
+              width: 40,
+              decoration: BoxDecoration(
+                  color: SolidColors.primery.withBlue(100), shape: BoxShape.circle),
+                  child: const Icon(Icons.keyboard_arrow_right_rounded),
+            ),
+                ),
+              ),
+          ),
+        );
+  }
 
 class TechDivider extends StatelessWidget {
   const TechDivider({
@@ -39,7 +74,7 @@ class MainTags extends StatelessWidget {
   const MainTags({Key? key, required this.textTheme, required this.index, required this.listItem, }) : super(key: key);
   final TextTheme textTheme;
   final int index;
-  final List<HashTagModel> listItem;
+  final RxList listItem;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -67,7 +102,7 @@ class MainTags extends StatelessWidget {
                       width: 8.0,
                     ),
                     Text(
-                      listItem[index].title.toString(),
+                      Get.find<HomeViewController>().tagsList[index].title!,
                       style: textTheme.headline2,
                     ),
                   ],

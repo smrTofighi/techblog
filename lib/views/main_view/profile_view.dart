@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:tech_blog_app/constant/colors.dart';
+import 'package:tech_blog_app/constant/component.dart';
 import 'package:tech_blog_app/constant/strings.dart';
 import 'package:tech_blog_app/gen/assets.gen.dart';
-
-import '../constant/component.dart';
 
 class ProflieView extends StatelessWidget {
   const ProflieView(
