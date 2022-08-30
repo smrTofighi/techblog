@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:tech_blog_app/constant/colors.dart';
 import 'package:tech_blog_app/views/article_list_view.dart';
+import 'package:tech_blog_app/views/article_single_view.dart';
 import 'package:tech_blog_app/views/splash_view.dart';
 
 void main() {
@@ -111,6 +112,6 @@ class TecApp extends StatelessWidget {
                 fontWeight: FontWeight.w700,
               )),
         ),
-        home: ArticleListView());
+        home: ArticleSingleView());
   }
 }

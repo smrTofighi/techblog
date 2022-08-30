@@ -20,7 +20,7 @@ myLaunchUrl(String url) async{
 
  PreferredSize appBar(String title) {
     return PreferredSize(
-          preferredSize: const Size.fromHeight(85),
+          preferredSize: const Size.fromHeight(60),
           child: Padding(
             padding: const EdgeInsets.all(12.0),
             child: AppBar(
