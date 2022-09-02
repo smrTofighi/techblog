@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:get/get.dart';
 import 'package:tech_blog_app/constant/colors.dart';
 import 'package:tech_blog_app/views/article_list_view.dart';
 import 'package:tech_blog_app/views/article_single_view.dart';
@@ -23,7 +24,7 @@ class TecApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var textTheme = Theme.of(context).textTheme;
-    return MaterialApp(
+    return GetMaterialApp(
         debugShowCheckedModeBanner: false,
         //? localizations -------------------------
         localizationsDelegates: const [
@@ -113,6 +114,6 @@ class TecApp extends StatelessWidget {
                 fontWeight: FontWeight.w700,
               )),
         ),
-        home: ArticleSingleView());
+        home: ArticleListView());
   }
 }

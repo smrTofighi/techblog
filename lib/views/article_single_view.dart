@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:tech_blog_app/constant/colors.dart';
+import 'package:tech_blog_app/constant/text_style.dart';
 import 'package:tech_blog_app/gen/assets.gen.dart';
 import '../constant/strings.dart';
 
@@ -133,8 +134,7 @@ class ArticleSingleView extends StatelessWidget {
                       size: 32,
                     ),
                   ),
-                  textStyle: TextStyle(
-                      fontSize: 14, color: Colors.black.withOpacity(0.7)),
+                  textStyle: TextStyles.contentArticleSingleViewTextStyle,
                 ),
               ),
               const SizedBox(
