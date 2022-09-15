@@ -97,7 +97,7 @@ class HomeView extends StatelessWidget {
                               CachedNetworkImage(
                                 imageUrl: homeViewController
                                     .topVisitedList[index].image!,
-                                //? ----------------------
+                               
 
                                 imageBuilder: ((context, imageProvider) =>
                                     Container(
@@ -122,14 +122,14 @@ class HomeView extends StatelessWidget {
                                       ),
                                     )),
 
-                                //? ---------------------
+                                
 
                                 placeholder: (context, url) =>
                                     const SpinKitFoldingCube(
                                   color: SolidColors.primery,
                                   size: 32.0,
                                 ),
-                                //? ---------------------
+                                
 
                                 errorWidget: (context, url, error) =>
                                     const Icon(

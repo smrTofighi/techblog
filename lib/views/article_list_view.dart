@@ -2,8 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
-import 'package:tech_blog_app/controllers/list_article_controller.dart';
-import 'package:tech_blog_app/controllers/single_article_controller.dart';
+import 'package:tech_blog_app/controllers/article_list_controller.dart';
+import 'package:tech_blog_app/controllers/article_single_controller.dart';
 import 'package:tech_blog_app/views/article_single_view.dart';
 
 import '../constant/colors.dart';
@@ -11,8 +11,8 @@ import '../constant/component.dart';
 
 class ArticleListView extends StatelessWidget {
   ArticleListView({Key? key}) : super(key: key);
-  ListArticleController listArticleController = Get.put(ListArticleController());
-  SingleArticleController singleArticleController = Get.put(SingleArticleController());
+  ArticleListController listArticleController = Get.put(ArticleListController());
+  ArticleSingleController articleSingleController = Get.put(ArticleSingleController());
 
   @override
   Widget build(BuildContext context) {
@@ -26,8 +26,8 @@ class ArticleListView extends StatelessWidget {
               scrollDirection: Axis.vertical,
               itemBuilder: (context, index) => InkWell(
                 onTap: ((){
-                  singleArticleController.id.value = int.parse(listArticleController.articleList[index].id!);
-                  Get.to(const ArticleSingleView());
+                  articleSingleController.id.value = int.parse(listArticleController.articleList[index].id!);
+                  Get.to(ArticleSingleView());
                 }),
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),

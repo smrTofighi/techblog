@@ -6,7 +6,7 @@ import 'package:tech_blog_app/models/article_model.dart';
 import '../constant/api_constant.dart';
 import '../services/dio_service.dart';
 
-class ListArticleController extends GetxController{
+class ArticleListController extends GetxController{
   RxList<ArticleModel> articleList = RxList();
   RxBool loading = false.obs;
   @override
