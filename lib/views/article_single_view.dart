@@ -4,27 +4,17 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:get/get.dart';
 import 'package:tech_blog_app/constant/colors.dart';
+import 'package:tech_blog_app/constant/component.dart';
 import 'package:tech_blog_app/constant/text_style.dart';
+import 'package:tech_blog_app/controllers/article_list_controller.dart';
 import 'package:tech_blog_app/controllers/article_single_controller.dart';
 import 'package:tech_blog_app/gen/assets.gen.dart';
+import 'package:tech_blog_app/views/article_list_view.dart';
 import '../constant/strings.dart';
 
-class ArticleSingleView extends StatefulWidget {
-  ArticleSingleView({Key? key}) : super(key: key);
-
-  @override
-  State<ArticleSingleView> createState() => _ArticleSingleViewState();
-}
-
-class _ArticleSingleViewState extends State<ArticleSingleView> {
+class ArticleSingleView extends StatelessWidget {
   ArticleSingleController articleSingleController =
       Get.put(ArticleSingleController());
-
-  @override
-  void initState() {
-    super.initState();
-    articleSingleController.getArticleInfo();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -75,30 +65,34 @@ class _ArticleSingleViewState extends State<ArticleSingleView> {
                                       begin: Alignment.topCenter)),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
-                                children: const [
-                                  SizedBox(
+                                children: [
+                                  const SizedBox(
                                     width: 20,
                                   ),
-                                  Icon(
+                                  IconButton(onPressed: (){
+                                    Get.back();
+                                  }, icon: const Icon(
                                     Icons.arrow_back,
                                     color: Colors.white,
                                     size: 24,
-                                  ),
-                                  Expanded(child: SizedBox()),
-                                  Icon(
+                                  ),),
+                                  const Expanded(child: SizedBox()),
+                                  const Icon(
                                     Icons.bookmark_border_rounded,
                                     color: Colors.white,
                                     size: 24,
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 20,
                                   ),
-                                  Icon(
+                                  IconButton(onPressed: (){
+                                    myLaunchUrl(articleSingleController.articleInfoModel.value.title!);
+                                  }, icon: const Icon(
                                     Icons.share,
                                     color: Colors.white,
                                     size: 24,
-                                  ),
-                                  SizedBox(
+                                  ),),
+                                  const SizedBox(
                                     width: 20,
                                   ),
                                 ],
@@ -167,7 +161,7 @@ class _ArticleSingleViewState extends State<ArticleSingleView> {
                       ),
                       tagsList(textTheme),
                       relatedArticlesText(textTheme),
-                      relatedArticle(textTheme, size),
+                      relatedArticles(textTheme, size),
                       const SizedBox(
                         height: 25,
                       )
@@ -179,104 +173,111 @@ class _ArticleSingleViewState extends State<ArticleSingleView> {
     );
   }
 
-  Widget relatedArticle(TextTheme textTheme, Size size) {
+  Widget relatedArticles(TextTheme textTheme, Size size) {
     double bodyMargin = size.width / 10;
     return SizedBox(
       height: size.height / 3.5,
       child: ListView.builder(
         itemBuilder: (context, index) {
-          return Padding(
-            padding: EdgeInsets.only(right: index == 0 ? bodyMargin : 15),
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: SizedBox(
-                    height: size.height / 5.3,
-                    width: size.width / 2.4,
-                    child: Stack(
-                      children: [
-                        CachedNetworkImage(
-                          imageUrl:
-                              articleSingleController.relatedList[index].image!,
-                          imageBuilder: ((context, imageProvider) => Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: const BorderRadius.all(
-                                    Radius.circular(16.0),
+          return InkWell(
+            onTap: () {
+              articleSingleController.getArticleInfo(
+                  articleSingleController.relatedList[index].id);
+            },
+            child: Padding(
+              padding: EdgeInsets.only(right: index == 0 ? bodyMargin : 15),
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: SizedBox(
+                      height: size.height / 5.3,
+                      width: size.width / 2.4,
+                      child: Stack(
+                        children: [
+                          CachedNetworkImage(
+                            imageUrl: articleSingleController
+                                .relatedList[index].image!,
+                            imageBuilder: ((context, imageProvider) =>
+                                Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: const BorderRadius.all(
+                                      Radius.circular(16.0),
+                                    ),
+                                    image: DecorationImage(
+                                      image: imageProvider,
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
-                                  image: DecorationImage(
-                                    image: imageProvider,
-                                    fit: BoxFit.cover,
+                                  foregroundDecoration: const BoxDecoration(
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(16.0),
+                                    ),
+                                    gradient: LinearGradient(
+                                      colors: GradiantColors.blogPost,
+                                      begin: Alignment.bottomCenter,
+                                      end: Alignment.topCenter,
+                                    ),
                                   ),
+                                )),
+                            placeholder: (context, url) =>
+                                const SpinKitFoldingCube(
+                              color: SolidColors.primery,
+                              size: 32.0,
+                            ),
+                            errorWidget: (context, url, error) => const Icon(
+                              Icons.image_not_supported_outlined,
+                              size: 50.0,
+                              color: Colors.grey,
+                            ),
+                          ),
+                          Positioned(
+                            bottom: 8,
+                            left: 0,
+                            right: 0,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Text(
+                                  articleSingleController
+                                      .relatedList[index].author!,
+                                  style: textTheme.subtitle1,
                                 ),
-                                foregroundDecoration: const BoxDecoration(
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(16.0),
-                                  ),
-                                  gradient: LinearGradient(
-                                    colors: GradiantColors.blogPost,
-                                    begin: Alignment.bottomCenter,
-                                    end: Alignment.topCenter,
-                                  ),
+                                Row(
+                                  children: [
+                                    Text(
+                                      articleSingleController
+                                          .relatedList[index].view!,
+                                      style: textTheme.subtitle1,
+                                    ),
+                                    const SizedBox(
+                                      width: 8,
+                                    ),
+                                    const Icon(
+                                      Icons.remove_red_eye_sharp,
+                                      color: Colors.white,
+                                      size: 16.0,
+                                    ),
+                                  ],
                                 ),
-                              )),
-                          placeholder: (context, url) =>
-                              const SpinKitFoldingCube(
-                            color: SolidColors.primery,
-                            size: 32.0,
+                              ],
+                            ),
                           ),
-                          errorWidget: (context, url, error) => const Icon(
-                            Icons.image_not_supported_outlined,
-                            size: 50.0,
-                            color: Colors.grey,
-                          ),
-                        ),
-                        Positioned(
-                          bottom: 8,
-                          left: 0,
-                          right: 0,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Text(
-                                articleSingleController
-                                    .relatedList[index].author!,
-                                style: textTheme.subtitle1,
-                              ),
-                              Row(
-                                children: [
-                                  Text(
-                                    articleSingleController
-                                        .relatedList[index].view!,
-                                    style: textTheme.subtitle1,
-                                  ),
-                                  const SizedBox(
-                                    width: 8,
-                                  ),
-                                  const Icon(
-                                    Icons.remove_red_eye_sharp,
-                                    color: Colors.white,
-                                    size: 16.0,
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
-                ),
-                SizedBox(
-                  width: size.width / 2.4,
-                  child: Text(
-                    articleSingleController.relatedList[index].title!,
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 2,
-                    style: textTheme.headline4,
+                  SizedBox(
+                    width: size.width / 2.4,
+                    child: Text(
+                      articleSingleController.relatedList[index].title!,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 2,
+                      style: textTheme.headline4,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           );
         },
@@ -310,19 +311,29 @@ class _ArticleSingleViewState extends State<ArticleSingleView> {
         scrollDirection: Axis.horizontal,
         itemBuilder: (context, index) => Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Container(
-            height: 25,
-            decoration: const BoxDecoration(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(24),
-                ),
-                color: Color.fromARGB(255, 242, 242, 242)),
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Center(
-                child: Text(
-                  articleSingleController.tags[index].title!,
-                  style: textTheme.headline4,
+          child: InkWell(
+            onTap: () async {
+              await Get.find<ArticleListController>().getArticleListWithTagsId(
+                  articleSingleController.tags[index].id!);
+              var titleAppBar = articleSingleController.tags[index].title!;
+              Get.to(ArticleListView(
+                titleAppBar: titleAppBar,
+              ));
+            },
+            child: Container(
+              height: 25,
+              decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(24),
+                  ),
+                  color: Color.fromARGB(255, 242, 242, 242)),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Center(
+                  child: Text(
+                    articleSingleController.tags[index].title!,
+                    style: textTheme.headline4,
+                  ),
                 ),
               ),
             ),

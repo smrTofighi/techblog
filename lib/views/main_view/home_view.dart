@@ -5,9 +5,12 @@ import 'package:get/get.dart';
 import 'package:tech_blog_app/constant/component.dart';
 import 'package:tech_blog_app/constant/colors.dart';
 import 'package:tech_blog_app/constant/strings.dart';
+import 'package:tech_blog_app/controllers/article_list_controller.dart';
+import 'package:tech_blog_app/controllers/article_single_controller.dart';
 import 'package:tech_blog_app/controllers/home_view_controller.dart';
 import 'package:tech_blog_app/gen/assets.gen.dart';
 import 'package:tech_blog_app/models/fake_data.dart';
+import 'package:tech_blog_app/views/article_list_view.dart';
 
 
 class HomeView extends StatelessWidget {
@@ -21,6 +24,8 @@ class HomeView extends StatelessWidget {
   final TextTheme textTheme;
   final double bodyMargin;
   HomeViewController homeViewController = Get.put(HomeViewController());
+  ArticleSingleController articleSingleController = Get.put(ArticleSingleController());
+  ArticleListController articleListController = Get.put(ArticleListController());
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -46,8 +51,7 @@ class HomeView extends StatelessWidget {
                         const MySizedBox(height: 32),
 
                         //? see more ---------------
-                        SeeMoreBlog(
-                            bodyMargin: bodyMargin, textTheme: textTheme),
+                        seeMoreArticle(),
 
                         //? blog posts -------------
 
@@ -77,113 +81,148 @@ class HomeView extends StatelessWidget {
         ));
   }
 
+  Widget seeMoreArticle(){
+    return InkWell(
+      onTap: () {
+        Get.to(ArticleListView(titleAppBar: 'مقالات جدید'));
+      },
+      child: Padding(
+        padding: EdgeInsets.only(
+          right: bodyMargin,
+          bottom: 8,
+        ),
+        child: Row(
+          children: [
+            ImageIcon(
+              AssetImage(Assets.icons.bluepen.path),
+              color: SolidColors.seeMore,
+            ),
+            const SizedBox(
+              width: 8.0,
+            ),
+            Text(
+              ValueStrings.viewHotesBlog,
+              style: textTheme.headline3,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   Widget topVisited() {
     return SizedBox(
       height: size.height / 3.5,
       child: Obx(
         (() => ListView.builder(
               itemBuilder: (context, index) {
-                return Padding(
-                  padding: EdgeInsets.only(right: index == 0 ? bodyMargin : 15),
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: SizedBox(
-                          height: size.height / 5.3,
-                          width: size.width / 2.4,
-                          child: Stack(
-                            children: [
-                              CachedNetworkImage(
-                                imageUrl: homeViewController
-                                    .topVisitedList[index].image!,
-                               
+                return InkWell(
+                  onTap: () {
+                   articleSingleController.getArticleInfo(
+                        homeViewController.topVisitedList[index].id);
+                  },
+                  child: Padding(
+                    padding: EdgeInsets.only(right: index == 0 ? bodyMargin : 15),
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: SizedBox(
+                            height: size.height / 5.3,
+                            width: size.width / 2.4,
+                            child: Stack(
+                              children: [
+                                CachedNetworkImage(
+                                  imageUrl: homeViewController
+                                      .topVisitedList[index].image!,
 
-                                imageBuilder: ((context, imageProvider) =>
-                                    Container(
-                                      decoration: BoxDecoration(
-                                        borderRadius: const BorderRadius.all(
-                                          Radius.circular(16.0),
+
+                                  imageBuilder: ((context, imageProvider) =>
+                                      Container(
+                                        decoration: BoxDecoration(
+                                          borderRadius: const BorderRadius.all(
+                                            Radius.circular(16.0),
+                                          ),
+                                          image: DecorationImage(
+                                            image: imageProvider,
+                                            fit: BoxFit.cover,
+                                          ),
                                         ),
-                                        image: DecorationImage(
-                                          image: imageProvider,
-                                          fit: BoxFit.cover,
+                                        foregroundDecoration: const BoxDecoration(
+                                          borderRadius: BorderRadius.all(
+                                            Radius.circular(16.0),
+                                          ),
+                                          gradient: LinearGradient(
+                                            colors: GradiantColors.blogPost,
+                                            begin: Alignment.bottomCenter,
+                                            end: Alignment.topCenter,
+                                          ),
                                         ),
+                                      )),
+
+
+
+                                  placeholder: (context, url) =>
+                                      const SpinKitFoldingCube(
+                                    color: SolidColors.primery,
+                                    size: 32.0,
+                                  ),
+
+
+                                  errorWidget: (context, url, error) =>
+                                      const Icon(
+                                    Icons.image_not_supported_outlined,
+                                    size: 50.0,
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                                Positioned(
+                                  bottom: 8,
+                                  left: 0,
+                                  right: 0,
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    children: [
+                                      Text(
+                                        homeViewController
+                                            .topVisitedList[index].author!,
+                                        style: textTheme.subtitle1,
                                       ),
-                                      foregroundDecoration: const BoxDecoration(
-                                        borderRadius: BorderRadius.all(
-                                          Radius.circular(16.0),
-                                        ),
-                                        gradient: LinearGradient(
-                                          colors: GradiantColors.blogPost,
-                                          begin: Alignment.bottomCenter,
-                                          end: Alignment.topCenter,
-                                        ),
+                                      Row(
+                                        children: [
+                                          Text(
+                                            homeViewController
+                                                .topVisitedList[index].view!,
+                                            style: textTheme.subtitle1,
+                                          ),
+                                          const SizedBox(
+                                            width: 8,
+                                          ),
+                                          const Icon(
+                                            Icons.remove_red_eye_sharp,
+                                            color: Colors.white,
+                                            size: 16.0,
+                                          ),
+                                        ],
                                       ),
-                                    )),
-
-                                
-
-                                placeholder: (context, url) =>
-                                    const SpinKitFoldingCube(
-                                  color: SolidColors.primery,
-                                  size: 32.0,
+                                    ],
+                                  ),
                                 ),
-                                
-
-                                errorWidget: (context, url, error) =>
-                                    const Icon(
-                                  Icons.image_not_supported_outlined,
-                                  size: 50.0,
-                                  color: Colors.grey,
-                                ),
-                              ),
-                              Positioned(
-                                bottom: 8,
-                                left: 0,
-                                right: 0,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  children: [
-                                    Text(
-                                      homeViewController
-                                          .topVisitedList[index].author!,
-                                      style: textTheme.subtitle1,
-                                    ),
-                                    Row(
-                                      children: [
-                                        Text(
-                                          homeViewController
-                                              .topVisitedList[index].view!,
-                                          style: textTheme.subtitle1,
-                                        ),
-                                        const SizedBox(
-                                          width: 8,
-                                        ),
-                                        const Icon(
-                                          Icons.remove_red_eye_sharp,
-                                          color: Colors.white,
-                                          size: 16.0,
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                      SizedBox(
-                        width: size.width / 2.4,
-                        child: Text(
-                          homeViewController.topVisitedList[index].title!,
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 2,
+                        SizedBox(
+                          width: size.width / 2.4,
+                          child: Text(
+                            homeViewController.topVisitedList[index].title!,
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 2,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 );
               },
@@ -352,14 +391,24 @@ class HomeView extends StatelessWidget {
       height: 60,
       child: ListView.builder(
         itemBuilder: (context, index) {
-          return Padding(
-              padding:
-                  EdgeInsets.fromLTRB(0, 8, index == 0 ? bodyMargin : 15, 8),
-              child: MainTags(
-                textTheme: textTheme,
-                index: index,
-                listItem: homeViewController.tagsList,
+          return InkWell(
+            onTap: () async{
+              await articleListController.getArticleListWithTagsId(
+                  homeViewController.tagsList[index].id!);
+              var titleAppBar = homeViewController.tagsList[index].title!;
+              Get.to(ArticleListView(
+                titleAppBar: titleAppBar,
               ));
+            },
+            child: Padding(
+                padding:
+                    EdgeInsets.fromLTRB(0, 8, index == 0 ? bodyMargin : 15, 8),
+                child: MainTags(
+                  textTheme: textTheme,
+                  index: index,
+                  listItem: homeViewController.tagsList,
+                )),
+          );
         },
         itemCount: homeViewController.tagsList.length,
         scrollDirection: Axis.horizontal,
@@ -414,41 +463,4 @@ class SeeMorePadcast extends StatelessWidget {
     );
   }
 }
-
-class SeeMoreBlog extends StatelessWidget {
-  const SeeMoreBlog({
-    Key? key,
-    required this.bodyMargin,
-    required this.textTheme,
-  }) : super(key: key);
-
-  final double bodyMargin;
-  final TextTheme textTheme;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(
-        right: bodyMargin,
-        bottom: 8,
-      ),
-      child: Row(
-        children: [
-          ImageIcon(
-            AssetImage(Assets.icons.bluepen.path),
-            color: SolidColors.seeMore,
-          ),
-          const SizedBox(
-            width: 8.0,
-          ),
-          Text(
-            ValueStrings.viewHotesBlog,
-            style: textTheme.headline3,
-          ),
-        ],
-      ),
-    );
-  }
-}
-
 

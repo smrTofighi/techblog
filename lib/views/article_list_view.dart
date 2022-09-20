@@ -10,24 +10,27 @@ import '../constant/colors.dart';
 import '../constant/component.dart';
 
 class ArticleListView extends StatelessWidget {
-  ArticleListView({Key? key}) : super(key: key);
-  ArticleListController listArticleController = Get.put(ArticleListController());
-  ArticleSingleController articleSingleController = Get.put(ArticleSingleController());
+  ArticleListView({Key? key, required this.titleAppBar}) : super(key: key);
+  String titleAppBar;
+  ArticleListController listArticleController =
+      Get.put(ArticleListController());
+  ArticleSingleController articleSingleController =
+      Get.put(ArticleSingleController());
 
   @override
   Widget build(BuildContext context) {
     var textTheme = Theme.of(context).textTheme;
     return SafeArea(
       child: Scaffold(
-        appBar: appBar('مقالات جدید'),
+        appBar: appBar(titleAppBar),
         body: SizedBox(
           child: Obx(
             () => ListView.builder(
               scrollDirection: Axis.vertical,
               itemBuilder: (context, index) => InkWell(
-                onTap: ((){
-                  articleSingleController.id.value = int.parse(listArticleController.articleList[index].id!);
-                  Get.to(ArticleSingleView());
+                onTap: (() {
+                  articleSingleController.getArticleInfo(
+                      listArticleController.articleList[index].id);
                 }),
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -38,7 +41,8 @@ class ArticleListView extends StatelessWidget {
                         height: Get.height / 8,
                         width: Get.width / 4,
                         child: CachedNetworkImage(
-                          imageUrl: listArticleController.articleList[index].image!,
+                          imageUrl:
+                              listArticleController.articleList[index].image!,
                           imageBuilder: (context, imageProvider) => Container(
                             decoration: BoxDecoration(
                                 borderRadius:
@@ -81,7 +85,8 @@ class ArticleListView extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                listArticleController.articleList[index].author!,
+                                listArticleController
+                                    .articleList[index].author!,
                                 style: textTheme.headline4,
                               ),
                               const SizedBox(

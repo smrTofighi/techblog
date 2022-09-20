@@ -113,6 +113,6 @@ class TecApp extends StatelessWidget {
                 fontWeight: FontWeight.w700,
               )),
         ),
-        home: ArticleListView());
+        home: MainView());
   }
 }

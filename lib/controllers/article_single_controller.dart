@@ -4,6 +4,7 @@ import 'package:tech_blog_app/models/article_info_model.dart';
 import 'package:tech_blog_app/models/article_model.dart';
 import 'package:tech_blog_app/models/tag_model.dart';
 import 'package:tech_blog_app/services/dio_service.dart';
+import 'package:tech_blog_app/views/article_single_view.dart';
 
 class ArticleSingleController extends GetxController {
   RxBool loading = false.obs;
@@ -17,7 +18,8 @@ class ArticleSingleController extends GetxController {
   //   super.onInit();
   // }
 
-  getArticleInfo() async {
+  getArticleInfo(var id) async {
+    articleInfoModel = ArticleInfoModel().obs;
     loading.value = true;
     //TODO: user id is hard code
     var userId = '';
@@ -38,5 +40,6 @@ class ArticleSingleController extends GetxController {
     }
     
     loading.value = false;
+    Get.to(ArticleSingleView());
   }
 }
