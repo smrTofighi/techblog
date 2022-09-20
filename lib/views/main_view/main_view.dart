@@ -6,6 +6,7 @@ import 'package:tech_blog_app/constant/component.dart';
 import 'package:tech_blog_app/constant/strings.dart';
 import 'package:tech_blog_app/gen/assets.gen.dart';
 import 'package:tech_blog_app/views/main_view/profile_view.dart';
+import 'package:tech_blog_app/views/register/register_into_view.dart';
 
 import 'home_view.dart';
 
@@ -200,7 +201,10 @@ class BottomNavigation extends StatelessWidget {
                   splashColor: Colors.white,
                 ),
                 IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    //TODO: check login status
+                    Get.to(RegisterIntoView());
+                  },
                   icon: ImageIcon(
                     AssetImage(Assets.icons.w.path),
                     color: Colors.white,

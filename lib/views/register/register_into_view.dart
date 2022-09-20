@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:tech_blog_app/constant/strings.dart';
+import 'package:tech_blog_app/controllers/register_controller.dart';
 import 'package:tech_blog_app/gen/assets.gen.dart';
 import 'package:tech_blog_app/views/my_cats_view.dart';
 import 'package:validators/validators.dart';
 
 class RegisterIntoView extends StatelessWidget {
-  const RegisterIntoView({Key? key}) : super(key: key);
+  RegisterIntoView({Key? key}) : super(key: key);
+
+  RegisterController registerController = Get.put(RegisterController());
 
   @override
   Widget build(BuildContext context) {
@@ -81,6 +85,7 @@ class RegisterIntoView extends StatelessWidget {
                                 padding:
                                     const EdgeInsets.all(24),
                                 child: TextField(
+                                  controller: registerController.emailTextEditingController,
                                   onChanged: (value) {
                                     isEmail(value);
                                   },
@@ -138,6 +143,7 @@ class RegisterIntoView extends StatelessWidget {
                                 padding:
                                     const EdgeInsets.all(24),
                                 child: TextField(
+                                  controller: registerController.acticeCodeTextEditingController,
                                   onChanged: (value) {
                                     isEmail(value);
                                   },

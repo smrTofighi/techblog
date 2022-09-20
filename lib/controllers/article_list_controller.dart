@@ -33,7 +33,7 @@ class ArticleListController extends GetxController{
     }
   }
 
-  getArticleListWithTagsId(String id,) async {
+  getArticleListWithTagsId(String id) async {
     loading.value = true;
     articleList.clear();
     // TODO get userid from getstorage ApiConstant.getArticleList + userId 
