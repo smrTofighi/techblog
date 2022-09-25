@@ -1,18 +1,23 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:tech_blog_app/constant/colors.dart';
+import 'package:tech_blog_app/http_overrides.dart';
 import 'package:tech_blog_app/views/main_view/main_view.dart';
 
 void main() async {
+  HttpOverrides.global = MyHttpOverrides();
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: SolidColors.statusBar,
       statusBarIconBrightness: Brightness.dark,
       systemNavigationBarColor: SolidColors.navigationBar,
       systemNavigationBarIconBrightness: Brightness.dark));
   await GetStorage.init();
+  
   runApp(const TecApp());
 }
 
