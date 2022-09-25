@@ -1,3 +1,5 @@
+import 'package:tech_blog_app/constant/api_constant.dart';
+
 class PadcastModel {
   String? id;
   String? title;
@@ -19,7 +21,7 @@ class PadcastModel {
   PadcastModel.fromJson(Map<String,dynamic> element){
     id = element['id'];
     title = element['title'];
-    poster = element['poster'];
+    poster = ApiConstant.baseUrl + element['poster'];
     publisher = element['publisher'];
     view = element['view'];
     createdAt = element['created_at'];

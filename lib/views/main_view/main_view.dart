@@ -14,6 +14,8 @@ final GlobalKey<ScaffoldState> _key = GlobalKey();
 
 class MainView extends StatelessWidget {
   RxInt selectedPageIndex = 0.obs;
+
+  MainView({Key? key}) : super(key: key);
   
   @override
   Widget build(BuildContext context) {

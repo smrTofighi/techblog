@@ -12,9 +12,13 @@ import 'package:tech_blog_app/gen/assets.gen.dart';
 import 'package:tech_blog_app/views/article_list_view.dart';
 import '../constant/strings.dart';
 
+
+
 class ArticleSingleView extends StatelessWidget {
   ArticleSingleController articleSingleController =
       Get.put(ArticleSingleController());
+
+  ArticleSingleView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

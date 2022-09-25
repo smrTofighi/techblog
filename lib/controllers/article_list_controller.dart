@@ -2,8 +2,6 @@
 
 import 'package:get/get.dart';
 import 'package:tech_blog_app/models/article_model.dart';
-import 'package:tech_blog_app/views/article_list_view.dart';
-
 import '../constant/api_constant.dart';
 import '../services/dio_service.dart';
 

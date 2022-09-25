@@ -41,6 +41,7 @@ dependencies:
   share_plus: ^4.0.10
   url_launcher: ^6.1.5
   validators: ^3.0.0
+  get_storage: ^2.0.3
 
 dev_dependencies:
   # The "flutter_lints" package below contains a set of recommended lints to

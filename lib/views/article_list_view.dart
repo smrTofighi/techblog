@@ -4,7 +4,6 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:tech_blog_app/controllers/article_list_controller.dart';
 import 'package:tech_blog_app/controllers/article_single_controller.dart';
-import 'package:tech_blog_app/views/article_single_view.dart';
 
 import '../constant/colors.dart';
 import '../constant/component.dart';
