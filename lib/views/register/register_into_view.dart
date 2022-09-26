@@ -9,7 +9,7 @@ import 'package:validators/validators.dart';
 class RegisterIntoView extends StatelessWidget {
   RegisterIntoView({Key? key}) : super(key: key);
 
-  RegisterController registerController = Get.put(RegisterController());
+  var registerController = Get.find<RegisterController>();
 
   @override
   Widget build(BuildContext context) {

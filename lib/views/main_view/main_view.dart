@@ -15,7 +15,6 @@ final GlobalKey<ScaffoldState> _key = GlobalKey();
 // ignore: must_be_immutable
 class MainView extends StatelessWidget {
   RxInt selectedPageIndex = 0.obs;
-  RegisterController _registerController = Get.put(RegisterController(), permanent: false);
 
   MainView({Key? key}) : super(key: key);
 
@@ -124,7 +123,6 @@ class MainView extends StatelessWidget {
                   index: selectedPageIndex.value,
                   children: [
                     HomeView(
-                        size: size,
                         bodyMargin: bodyMargin,
                         textTheme: textTheme),
                     ProflieView(
@@ -188,7 +186,7 @@ class MainView extends StatelessWidget {
                 ),
                 IconButton(
                   onPressed: () {
-                    _registerController.checkLogin();
+                    Get.find<RegisterController>().checkLogin();
                   },
                   icon: ImageIcon(
                     AssetImage(Assets.icons.w.path),

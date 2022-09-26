@@ -16,11 +16,9 @@ import 'package:tech_blog_app/views/article_list_view.dart';
 class HomeView extends StatelessWidget {
   HomeView(
       {Key? key,
-      required this.size,
       required this.bodyMargin,
       required this.textTheme})
       : super(key: key);
-  final Size size;
   final TextTheme textTheme;
   final double bodyMargin;
   HomeViewController homeViewController = Get.put(HomeViewController());
@@ -112,7 +110,7 @@ class HomeView extends StatelessWidget {
 
   Widget topVisited() {
     return SizedBox(
-      height: size.height / 3.5,
+      height: Get.height / 3.5,
       child: Obx(
         (() => ListView.builder(
               itemBuilder: (context, index) {
@@ -128,8 +126,8 @@ class HomeView extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: SizedBox(
-                            height: size.height / 5.3,
-                            width: size.width / 2.4,
+                            height: Get.height / 5.3,
+                            width: Get.width / 2.4,
                             child: Stack(
                               children: [
                                 CachedNetworkImage(
@@ -214,7 +212,7 @@ class HomeView extends StatelessWidget {
                           ),
                         ),
                         SizedBox(
-                          width: size.width / 2.4,
+                          width: Get.width / 2.4,
                           child: Text(
                             homeViewController.topVisitedList[index].title!,
                             overflow: TextOverflow.ellipsis,
@@ -237,7 +235,7 @@ class HomeView extends StatelessWidget {
 
   Widget topPadcasts() {
     return SizedBox(
-      height: size.height / 3.5,
+      height: Get.height / 3.5,
       child: Obx(
         () => ListView.builder(
           itemBuilder: (context, index) {
@@ -248,8 +246,8 @@ class HomeView extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: SizedBox(
-                      height: size.height / 5.3,
-                      width: size.width / 2.4,
+                      height: Get.height / 5.3,
+                      width: Get.width / 2.4,
                       child: CachedNetworkImage(
                         imageUrl: homeViewController.topPadcasts[index].poster!,
                         //? ----------------------
@@ -283,7 +281,7 @@ class HomeView extends StatelessWidget {
                     ),
                   ),
                   SizedBox(
-                    width: size.width / 2.4,
+                    width: Get.width / 2.4,
                     child: Align(
                       child: Text(
                         homeViewController.topPadcasts[index].title!,
@@ -312,8 +310,8 @@ class HomeView extends StatelessWidget {
     return Stack(
       children: [
         Container(
-          width: size.width / 1.19,
-          height: size.height / 4.2,
+          width: Get.width / 1.19,
+          height: Get.height / 4.2,
           child: CachedNetworkImage(
             imageUrl: homeViewController.poster.value.image!,
             imageBuilder: (context, imageProvider) => Container(
