@@ -34,7 +34,7 @@ class RegisterController extends GetxController {
     };
     debugPrint(map.toString());
     var response = await DioService().postMethod(map, ApiConstant.postRegister);
-    debugPrint(response);
+    debugPrint(response.toString());
     var status = response.data['response'];
 
     switch (status) {
@@ -43,8 +43,8 @@ class RegisterController extends GetxController {
         box.write(token, response.data['token']);
         box.write(userid, response.data['user_id']);
 
-        debugPrint('test: ' + box.read(token));
-        debugPrint('test: ' + box.read(userid));
+        debugPrint('test: ' + box.read(token).toString());
+        debugPrint('test: ' + box.read(userid).toString());
         Get.offAll(MainView());
         break;
       case 'incorrect_code':

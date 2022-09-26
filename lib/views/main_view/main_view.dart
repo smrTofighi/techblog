@@ -4,19 +4,21 @@ import 'package:share_plus/share_plus.dart';
 import 'package:tech_blog_app/constant/colors.dart';
 import 'package:tech_blog_app/constant/component.dart';
 import 'package:tech_blog_app/constant/strings.dart';
+import 'package:tech_blog_app/controllers/register_controller.dart';
 import 'package:tech_blog_app/gen/assets.gen.dart';
 import 'package:tech_blog_app/views/main_view/profile_view.dart';
-import 'package:tech_blog_app/views/register/register_into_view.dart';
 
 import 'home_view.dart';
 
 final GlobalKey<ScaffoldState> _key = GlobalKey();
 
+// ignore: must_be_immutable
 class MainView extends StatelessWidget {
   RxInt selectedPageIndex = 0.obs;
+  RegisterController _registerController = Get.put(RegisterController(), permanent: false);
 
   MainView({Key? key}) : super(key: key);
-  
+
   @override
   Widget build(BuildContext context) {
     var textTheme = Theme.of(context).textTheme;
@@ -62,7 +64,7 @@ class MainView extends StatelessWidget {
                     'اشتراک گذاری تک بلاگ',
                     style: textTheme.headline4,
                   ),
-                  onTap: (() async{
+                  onTap: (() async {
                     await Share.share(ValueStrings.shareText);
                   }),
                 ),
@@ -133,10 +135,8 @@ class MainView extends StatelessWidget {
                 ),
               ),
             ),
-            BottomNavigation(
-              size: size,
-              bodyMargin: bodyMargin,
-              changeScreen: (int index) {
+            bottomNavigation(
+              (int index) {
                 selectedPageIndex.value = index;
               },
             ),
@@ -147,30 +147,14 @@ class MainView extends StatelessWidget {
     );
   }
 
-
-
-}
-
-class BottomNavigation extends StatelessWidget {
-  const BottomNavigation({
-    Key? key,
-    required this.size,
-    required this.bodyMargin,
-    required this.changeScreen,
-  }) : super(key: key);
-
-  final Size size;
-  final double bodyMargin;
-  final Function(int) changeScreen;
-
-  @override
-  Widget build(BuildContext context) {
+  Widget bottomNavigation(Function(int) changeScreen) {
+    double bodyMargin = Get.width / 10;
     return Positioned(
       bottom: 0,
       right: 0,
       left: 0,
       child: Container(
-        height: size.height / 10,
+        height: Get.height / 10,
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: GradiantColors.bottomNavBack,
@@ -182,7 +166,7 @@ class BottomNavigation extends StatelessWidget {
           padding: EdgeInsets.only(
               right: bodyMargin, left: bodyMargin, bottom: 8, top: 8),
           child: Container(
-            height: size.height / 8,
+            height: Get.height / 8,
             decoration: const BoxDecoration(
               borderRadius: BorderRadius.all(
                 Radius.circular(18),
@@ -204,8 +188,7 @@ class BottomNavigation extends StatelessWidget {
                 ),
                 IconButton(
                   onPressed: () {
-                    //TODO: check login status
-                    Get.to(RegisterIntoView());
+                    _registerController.checkLogin();
                   },
                   icon: ImageIcon(
                     AssetImage(Assets.icons.w.path),
