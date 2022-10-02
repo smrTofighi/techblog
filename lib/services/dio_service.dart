@@ -11,6 +11,10 @@ class DioService {
             options: Options(responseType: ResponseType.json, method: 'GET'))
         .then((response) {
       return response;
+    }).catchError((error){
+      if(error is DioError){
+        return error.response!;
+      }
     });
   }
 
@@ -27,6 +31,10 @@ class DioService {
       log(response.data.toString());
       log(response.statusCode.toString());
       return response;
+    }).catchError((error){
+      if(error is DioError){
+        return error.response!;
+      }
     });
   }
 }

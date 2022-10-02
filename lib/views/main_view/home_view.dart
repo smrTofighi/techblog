@@ -5,12 +5,13 @@ import 'package:get/get.dart';
 import 'package:tech_blog_app/constant/component.dart';
 import 'package:tech_blog_app/constant/colors.dart';
 import 'package:tech_blog_app/constant/strings.dart';
-import 'package:tech_blog_app/controllers/article_list_controller.dart';
-import 'package:tech_blog_app/controllers/article_single_controller.dart';
 import 'package:tech_blog_app/controllers/home_view_controller.dart';
 import 'package:tech_blog_app/gen/assets.gen.dart';
 import 'package:tech_blog_app/models/fake_data.dart';
-import 'package:tech_blog_app/views/article_list_view.dart';
+
+import '../../controllers/articles/article_list_controller.dart';
+import '../../controllers/articles/article_single_controller.dart';
+import '../articles/article_list_view.dart';
 
 
 class HomeView extends StatelessWidget {

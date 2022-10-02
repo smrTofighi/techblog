@@ -8,7 +8,9 @@ import 'package:get_storage/get_storage.dart';
 import 'package:tech_blog_app/bindings.dart';
 import 'package:tech_blog_app/constant/colors.dart';
 import 'package:tech_blog_app/http_overrides.dart';
+import 'package:tech_blog_app/routes/routes.dart';
 import 'package:tech_blog_app/views/main_view/main_view.dart';
+import 'package:tech_blog_app/views/splash_view.dart';
 
 void main() async {
   HttpOverrides.global = MyHttpOverrides();
@@ -29,8 +31,8 @@ class TecApp extends StatelessWidget {
   Widget build(BuildContext context) {
     var textTheme = Theme.of(context).textTheme;
     return GetMaterialApp(
-      initialBinding: RegisterBinding(),
         debugShowCheckedModeBanner: false,
+        getPages: routes,
         //? localizations -------------------------
         localizationsDelegates: const [
           GlobalMaterialLocalizations.delegate,
@@ -43,7 +45,7 @@ class TecApp extends StatelessWidget {
         locale: const Locale('fa', 'IR'),
         //? Theme ---------------------------------
         theme: lightTheme(textTheme),
-        home: MainView());
+        home: const SplashView());
   }
 
   ThemeData lightTheme(TextTheme textTheme) {

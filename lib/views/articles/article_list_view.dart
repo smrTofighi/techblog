@@ -2,11 +2,12 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
-import 'package:tech_blog_app/controllers/article_list_controller.dart';
-import 'package:tech_blog_app/controllers/article_single_controller.dart';
 
-import '../constant/colors.dart';
-import '../constant/component.dart';
+import '../../constant/colors.dart';
+import '../../constant/component.dart';
+import '../../controllers/articles/article_list_controller.dart';
+import '../../controllers/articles/article_single_controller.dart';
+
 
 class ArticleListView extends StatelessWidget {
   ArticleListView({Key? key, required this.titleAppBar}) : super(key: key);

@@ -4,11 +4,13 @@ import 'package:tech_blog_app/models/article_info_model.dart';
 import 'package:tech_blog_app/models/article_model.dart';
 import 'package:tech_blog_app/models/tag_model.dart';
 import 'package:tech_blog_app/services/dio_service.dart';
-import 'package:tech_blog_app/views/article_single_view.dart';
+
+import '../../views/articles/article_single_view.dart';
+
 
 class ArticleSingleController extends GetxController {
   RxBool loading = false.obs;
-  RxInt id = RxInt(0);
+  // RxInt id = RxInt(0);
   Rx<ArticleInfoModel> articleInfoModel = ArticleInfoModel().obs;
   RxList<ArticleModel> relatedList = RxList();
   RxList<TagModel> tags = RxList();

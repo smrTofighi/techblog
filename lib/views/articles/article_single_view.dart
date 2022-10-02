@@ -6,17 +6,18 @@ import 'package:get/get.dart';
 import 'package:tech_blog_app/constant/colors.dart';
 import 'package:tech_blog_app/constant/component.dart';
 import 'package:tech_blog_app/constant/text_style.dart';
-import 'package:tech_blog_app/controllers/article_list_controller.dart';
-import 'package:tech_blog_app/controllers/article_single_controller.dart';
 import 'package:tech_blog_app/gen/assets.gen.dart';
-import 'package:tech_blog_app/views/article_list_view.dart';
-import '../constant/strings.dart';
+
+import '../../constant/strings.dart';
+import '../../controllers/articles/article_list_controller.dart';
+import '../../controllers/articles/article_single_controller.dart';
+import 'article_list_view.dart';
 
 
 
 class ArticleSingleView extends StatelessWidget {
-  ArticleSingleController articleSingleController =
-      Get.put(ArticleSingleController());
+  var articleSingleController =
+     Get.find<ArticleSingleController>();
 
   ArticleSingleView({Key? key}) : super(key: key);
 
