@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:tech_blog_app/constant/api_constant.dart';
+import 'package:tech_blog_app/constant/storage.dart';
 import 'package:tech_blog_app/models/article_info_model.dart';
 import 'package:tech_blog_app/models/article_model.dart';
 import 'package:tech_blog_app/models/tag_model.dart';
@@ -23,8 +25,8 @@ class ArticleSingleController extends GetxController {
   getArticleInfo(var id) async {
     articleInfoModel = ArticleInfoModel().obs;
     loading.value = true;
-    //TODO: user id is hard code
-    var userId = '';
+    
+    var userId = GetStorage().read(StorageKey.userid);
     var response = await DioService().getMethod(ApiConstant.baseUrl +
         'article/get.php?command=info&id=$id&user_id=$userId');
     if (response.statusCode == 200) {
