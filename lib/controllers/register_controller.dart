@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:tech_blog_app/constant/api_constant.dart';
 import 'package:tech_blog_app/constant/storage.dart';
+import 'package:tech_blog_app/constant/strings.dart';
+import 'package:tech_blog_app/routes/routes.dart';
 import 'package:tech_blog_app/services/dio_service.dart';
 import 'package:tech_blog_app/views/main_view/main_view.dart';
 import 'package:tech_blog_app/views/register/register_into_view.dart';
@@ -44,11 +45,11 @@ class RegisterController extends GetxController {
     switch (status) {
       case 'verified':
         var box = GetStorage();
-        box.write(token, response.data['token']);
-        box.write(userid, response.data['user_id']);
+        box.write(StorageKey.token, response.data['token']);
+        box.write(StorageKey.userid, response.data['user_id']);
 
-        debugPrint('test: ' + box.read(token).toString());
-        debugPrint('test: ' + box.read(userid).toString());
+        debugPrint('test: ' + box.read(StorageKey.token).toString());
+        debugPrint('test: ' + box.read(StorageKey.userid).toString());
         Get.offAll(MainView());
         break;
       case 'incorrect_code':
@@ -61,11 +62,10 @@ class RegisterController extends GetxController {
   }
 
   checkLogin() {
-    if (GetStorage().read(token) == null) {
+    if (GetStorage().read(StorageKey.token) == null) {
       Get.to(RegisterIntoView());
     } else {
       routeToWriteBottomSheet();
-      debugPrint('test');
     }
   }
 
@@ -109,7 +109,10 @@ class RegisterController extends GetxController {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    Get.back();
+                    Get.toNamed(NameRoute.routeManageArticleView);
+                  },
                   child: SizedBox(
                     child: Row(
                       children: [
@@ -121,7 +124,7 @@ class RegisterController extends GetxController {
                           width: 12.0,
                         ),
                         const Text(
-                          'مدیریت مقاله ها',
+                          ValueStrings.manageArticlesText,
                           style: TextStyle(fontSize: 14),
                         ),
                       ],
@@ -141,7 +144,7 @@ class RegisterController extends GetxController {
                           width: 12.0,
                         ),
                         const Text(
-                          'مدیریت پادکست ها',
+                          ValueStrings.managePadcastsText,
                           style: TextStyle(fontSize: 14),
                         ),
                       ],

@@ -28,8 +28,8 @@ class ArticleListView extends StatelessWidget {
             () => ListView.builder(
               scrollDirection: Axis.vertical,
               itemBuilder: (context, index) => InkWell(
-                onTap: (() {
-                  articleSingleController.getArticleInfo(
+                onTap: (() async{
+                  await articleSingleController.getArticleInfo(
                       listArticleController.articleList[index].id);
                 }),
                 child: Padding(

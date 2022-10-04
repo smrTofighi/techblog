@@ -117,7 +117,7 @@ class RegisterIntoView extends StatelessWidget {
     //RegExp isEmail = RegExp('[^a-z-0-9]+@');
     return showModalBottomSheet(
       isScrollControlled: true,
-      backgroundColor: Colors.transparent, // the bottomsheet haves a color
+      backgroundColor: Colors.transparent, // the bottomsheet hass a color
       context: context,
       builder: ((context) {
         return Padding(

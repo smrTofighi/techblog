@@ -1,170 +1,159 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:tech_blog_app/constant/colors.dart';
+import 'package:tech_blog_app/constant/component.dart';
 import 'package:tech_blog_app/constant/strings.dart';
-import 'package:tech_blog_app/controllers/register_controller.dart';
+import 'package:tech_blog_app/controllers/articles/manage_article_controller.dart';
 import 'package:tech_blog_app/gen/assets.gen.dart';
-import 'package:validators/validators.dart';
+import 'package:tech_blog_app/routes/routes.dart';
 
+// ignore: must_be_immutable
 class ManageArticleView extends StatelessWidget {
   ManageArticleView({Key? key}) : super(key: key);
 
-  var registerController = Get.find<RegisterController>();
+  var manageArticleController = Get.find<ManageArticleController>();
 
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
     var textTheme = Theme.of(context).textTheme;
 
     return SafeArea(
       child: Scaffold(
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SvgPicture.asset(
-                Assets.images.techBot.path,
-                height: 100,
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 8.0),
-                child: RichText(
-                  textAlign: TextAlign.center,
-                  text: TextSpan(
-                    text: ValueStrings.wellCom,
-                    style: textTheme.headline4,
-                  ),
+        appBar: appBar('مدیریت مقاله'),
+        body: FutureBuilder(
+          future: Future.delayed(const Duration(seconds: 2)),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.done) {
+              return Obx(() => manageArticleController.articleList.isNotEmpty
+                  ? publishedArticlesByMe(textTheme)
+                  : articleEmptyState(textTheme));
+            } else {
+              return const Center(
+                child: SpinKitFoldingCube(
+                  color: SolidColors.primery,
+                  size: 32.0,
                 ),
-              ),
-              const SizedBox(
-                height: 32,
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  _showEmailBottomSheet(context, size, textTheme);
-                },
-                child: const Text(
-                  "بزن بریم",
-                ),
-              ),
-            ],
-          ),
+              );
+            }
+          },
         ),
       ),
     );
   }
 
-  Future<dynamic> _showEmailBottomSheet(
-      BuildContext context, Size size, TextTheme textTheme) {
-    //RegExp isEmail = RegExp('[^a-z-0-9]+@');
-    return showModalBottomSheet(
-      isScrollControlled: true,
-      backgroundColor: Colors.transparent, // the bottomsheet haves a color
-      context: context,
-      builder: ((context) {
-        return Padding(
-          padding:
-              EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
-          child: Container(
-            height: size.height / 2,
-            decoration: const BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(30),
-                topRight: Radius.circular(30),
-              ),
-            ),
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    ValueStrings.insertYourEmail,
-                    style: textTheme.headline4,
+  ListView publishedArticlesByMe(TextTheme textTheme) {
+    return ListView.builder(
+      scrollDirection: Axis.vertical,
+      itemBuilder: (context, index) => InkWell(
+        onTap: () async {},
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              SizedBox(
+                height: Get.height / 8,
+                width: Get.width / 4,
+                child: CachedNetworkImage(
+                  imageUrl: manageArticleController.articleList[index].image!,
+                  imageBuilder: (context, imageProvider) => Container(
+                    decoration: BoxDecoration(
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(16)),
+                        image: DecorationImage(
+                            image: imageProvider, fit: BoxFit.cover)),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(24),
-                    child: TextField(
-                      controller: registerController.emailTextEditingController,
-                      onChanged: (value) {
-                        isEmail(value);
-                      },
-                      textAlign: TextAlign.center,
-                      decoration: InputDecoration(
-                          hintText: "techblog@email.com",
-                          hintStyle: textTheme.headline5),
+                  placeholder: (context, url) => const Center(
+                    child: SpinKitDoubleBounce(
+                      color: SolidColors.primery,
+                      size: 32,
                     ),
                   ),
-                  ElevatedButton(
-                    onPressed: () {
-                      registerController.register();
-                      Get.back();
-                      _activateCodeBottomSheet(context, size, textTheme);
-                    },
-                    child: const Text("ادامه"),
+                  errorWidget: (context, url, error) => const Center(
+                    child: Icon(
+                      Icons.image_not_supported_rounded,
+                      color: Colors.grey,
+                    ),
                   ),
-                ],
+                ),
               ),
-            ),
+              const SizedBox(
+                width: 16,
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: Get.width / 2,
+                    child: Text(
+                      manageArticleController.articleList[index].title!,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 2,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        manageArticleController.articleList[index].author!,
+                        style: textTheme.headline4,
+                      ),
+                      const SizedBox(
+                        width: 20,
+                      ),
+                      Text(
+                        manageArticleController.articleList[index].view! +
+                            'بازدید',
+                        style: textTheme.headline4,
+                      ),
+                    ],
+                  )
+                ],
+              )
+            ],
           ),
-        );
-      }),
+        ),
+      ),
+      itemCount: manageArticleController.articleList.length,
     );
   }
 
-  Future<dynamic> _activateCodeBottomSheet(
-      BuildContext context, Size size, TextTheme textTheme) {
-    //RegExp isEmail = RegExp('[^a-z-0-9]+@');
-    return showModalBottomSheet(
-      isScrollControlled: true,
-      backgroundColor: Colors.transparent, // the bottomsheet haves a color
-      context: context,
-      builder: ((context) {
-        return Padding(
-          padding:
-              EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
-          child: Container(
-            height: size.height / 2,
-            decoration: const BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(30),
-                topRight: Radius.circular(30),
-              ),
-            ),
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    ValueStrings.insertActivateCode,
-                    style: textTheme.headline4,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(24),
-                    child: TextField(
-                      controller:
-                          registerController.acticeCodeTextEditingController,
-                      onChanged: (value) {
-                        isEmail(value);
-                      },
-                      textAlign: TextAlign.center,
-                      decoration: InputDecoration(
-                          hintText: "******", hintStyle: textTheme.headline5),
-                    ),
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      registerController.verify();
-                    },
-                    child: const Text("ادامه"),
-                  ),
-                ],
+  Widget articleEmptyState(TextTheme textTheme) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          SvgPicture.asset(
+            Assets.images.techBotSad.path,
+            height: 100,
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 8.0),
+            child: RichText(
+              textAlign: TextAlign.center,
+              text: TextSpan(
+                text: ValueStrings.noArticlesAdd,
+                style: textTheme.headline4,
               ),
             ),
           ),
-        );
-      }),
+          const SizedBox(
+            height: 32,
+          ),
+          ElevatedButton(
+            onPressed: () {},
+            child: const Text(
+              ValueStrings.letsGoToWriteArticle,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

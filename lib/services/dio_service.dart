@@ -11,8 +11,8 @@ class DioService {
             options: Options(responseType: ResponseType.json, method: 'GET'))
         .then((response) {
       return response;
-    }).catchError((error){
-      if(error is DioError){
+    }).catchError((error) {
+      if (error is DioError) {
         return error.response!;
       }
     });
@@ -21,7 +21,6 @@ class DioService {
   Future<dynamic> postMethod(Map<String, dynamic> map, String url) async {
     dio.options.headers['content-Type'] = 'application/json';
 
-    //TODO: read token from storage
     return await dio
         .post(url,
             data: dio_service.FormData.fromMap(map),
@@ -31,8 +30,8 @@ class DioService {
       log(response.data.toString());
       log(response.statusCode.toString());
       return response;
-    }).catchError((error){
-      if(error is DioError){
+    }).catchError((error) {
+      if (error is DioError) {
         return error.response!;
       }
     });
