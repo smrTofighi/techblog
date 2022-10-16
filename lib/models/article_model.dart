@@ -12,18 +12,7 @@ class ArticleModel {
   // String? isFavorite;
   String? createdAt;
 
-  ArticleModel({
-    required this.id,
-    required this.title,
-    required this.image,
-    required this.catId,
-    required this.catName,
-    required this.author,
-    required this.view,
-    required this.status,
-    // this.isFavorite,
-    required this.createdAt,
-  });
+  ArticleModel();
 
   ArticleModel.fromJson(Map<String, dynamic> element) {
     id = element["id"];

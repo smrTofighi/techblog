@@ -39,16 +39,28 @@ class RegisterIntoView extends StatelessWidget {
               const SizedBox(
                 height: 32,
               ),
-              ElevatedButton(
-                onPressed: () {
-                  _showEmailBottomSheet(context, size, textTheme);
-                },
-                child: const Text(
-                  "بزن بریم",
-                ),
-              ),
             ],
           ),
+        ),
+        bottomNavigationBar: elevatedButton(context, size, textTheme),
+      ),
+    );
+  }
+
+  Widget elevatedButton(BuildContext context, Size size, TextTheme textTheme) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(12, 0, 12, 12),
+      child: ElevatedButton(
+        onPressed: () {
+          _showEmailBottomSheet(context, size, textTheme);
+        },
+        style: ButtonStyle(
+          fixedSize: MaterialStateProperty.all(
+            Size(Get.width / 4, 56),
+          ),
+        ),
+        child: const Text(
+          ValueStrings.letsGoToWriteArticle,
         ),
       ),
     );

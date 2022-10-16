@@ -23,25 +23,41 @@ class ManageArticleView extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: appBar('مدیریت مقاله'),
-        body: FutureBuilder(
-          future: Future.delayed(const Duration(seconds: 2)),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.done) {
-              return Obx(() => manageArticleController.articleList.isNotEmpty
+        body: Obx(
+          () => manageArticleController.loading.value
+              ? const Center(
+                  child: SpinKitFoldingCube(
+                    color: SolidColors.primery,
+                    size: 32.0,
+                  ),
+                )
+              : manageArticleController.articleList.isNotEmpty
                   ? publishedArticlesByMe(textTheme)
-                  : articleEmptyState(textTheme));
-            } else {
-              return const Center(
-                child: SpinKitFoldingCube(
-                  color: SolidColors.primery,
-                  size: 32.0,
-                ),
-              );
-            }
-          },
+                  : articleEmptyState(textTheme),
         ),
+        bottomNavigationBar: elevatedButton(),
+        extendBody: true, //? bottom navigation has not background
       ),
     );
+  }
+
+  Widget elevatedButton() {
+    return Padding(
+        padding: const EdgeInsets.fromLTRB(12,0,12,12),
+        child: ElevatedButton(
+          onPressed: () {
+            Get.toNamed(NameRoute.routeManageArticleSingleView);
+          },
+          style: ButtonStyle(
+            fixedSize: MaterialStateProperty.all(
+              Size(Get.width / 4, 56),
+            ),
+          ),
+          child: const Text(
+            ValueStrings.letsGoToWriteArticle,
+          ),
+        ),
+      );
   }
 
   ListView publishedArticlesByMe(TextTheme textTheme) {
@@ -145,12 +161,6 @@ class ManageArticleView extends StatelessWidget {
           ),
           const SizedBox(
             height: 32,
-          ),
-          ElevatedButton(
-            onPressed: () {},
-            child: const Text(
-              ValueStrings.letsGoToWriteArticle,
-            ),
           ),
         ],
       ),

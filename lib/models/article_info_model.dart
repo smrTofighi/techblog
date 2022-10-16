@@ -13,7 +13,13 @@ class ArticleInfoModel {
   String? createdAt;
   bool? isFavorite;
 
-  ArticleInfoModel();
+  ArticleInfoModel({
+    this.title,
+    this.content,
+    this.image,
+    this.catName,
+
+  });
 
   ArticleInfoModel.fromJson(Map<String, dynamic> element) {
     var info = element['info'];

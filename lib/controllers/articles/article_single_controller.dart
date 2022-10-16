@@ -16,7 +16,6 @@ class ArticleSingleController extends GetxController {
   Rx<ArticleInfoModel> articleInfoModel = ArticleInfoModel().obs;
   RxList<ArticleModel> relatedList = RxList();
   RxList<TagModel> tags = RxList();
-
   // @override
   // void onInit() {
   //   super.onInit();
