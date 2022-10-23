@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:tech_blog_app/http_overrides.dart';
+import 'package:tech_blog_app/core/utils/http_overrides.dart';
 import 'package:tech_blog_app/routes/routes.dart';
 import 'package:tech_blog_app/views/pages/splash/splash_page.dart';
 

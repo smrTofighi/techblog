@@ -1,5 +1,5 @@
 import 'package:get/route_manager.dart';
-import 'package:tech_blog_app/bindings.dart';
+import 'package:tech_blog_app/bindings/bindings.dart';
 import 'package:tech_blog_app/views/pages/articles/article_single_page.dart';
 import 'package:tech_blog_app/views/pages/articles/manage_article_page.dart';
 import 'package:tech_blog_app/views/pages/articles/manage_article_single_page.dart';
