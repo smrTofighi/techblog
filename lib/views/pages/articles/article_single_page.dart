@@ -161,8 +161,7 @@ class ArticleSinglePage extends StatelessWidget {
                               size: 32,
                             ),
                           ),
-                          textStyle:
-                              TextStyles.contentArticleSingleViewTextStyle,
+                          textStyle: MyTextStyle.contentArticleSingePage,
                         ),
                       ),
                       const SizedBox(

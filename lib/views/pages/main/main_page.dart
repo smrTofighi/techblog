@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:tech_blog_app/core/values/dimens.dart';
 import 'package:tech_blog_app/views/widgets/component.dart';
 import 'package:tech_blog_app/controllers/register/register_controller.dart';
 import 'package:tech_blog_app/gen/assets.gen.dart';
@@ -20,8 +21,6 @@ class MainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var textTheme = Theme.of(context).textTheme;
-    var size = MediaQuery.of(context).size;
-    double bodyMargin = size.width / 10;
 
     //? return ------------------
     return SafeArea(
@@ -30,7 +29,8 @@ class MainPage extends StatelessWidget {
         drawer: Drawer(
           backgroundColor: SolidColors.whiteScaffoldBG,
           child: Padding(
-            padding: EdgeInsets.only(right: bodyMargin, left: bodyMargin),
+            padding: EdgeInsets.only(
+                right: Dimens.bodyMargin, left: Dimens.bodyMargin),
             child: ListView(
               children: [
                 DrawerHeader(
@@ -104,7 +104,7 @@ class MainPage extends StatelessWidget {
               ),
               Image(
                 image: AssetImage(Assets.images.techblog.path),
-                height: size.height / 13.6,
+                height: Dimens.height / 13.6,
               ),
               const Icon(
                 Icons.search,
@@ -121,11 +121,8 @@ class MainPage extends StatelessWidget {
                 () => IndexedStack(
                   index: selectedPageIndex.value,
                   children: [
-                    HomePage(bodyMargin: bodyMargin, textTheme: textTheme),
-                    ProfliePage(
-                        size: size,
-                        bodyMargin: bodyMargin,
-                        textTheme: textTheme),
+                    HomePage(textTheme: textTheme),
+                    ProfliePage(textTheme: textTheme),
                   ],
                 ),
               ),
@@ -143,7 +140,6 @@ class MainPage extends StatelessWidget {
   }
 
   Widget bottomNavigation(Function(int) changeScreen) {
-    double bodyMargin = Get.width / 10;
     return Positioned(
       bottom: 0,
       right: 0,
@@ -159,7 +155,10 @@ class MainPage extends StatelessWidget {
         ),
         child: Padding(
           padding: EdgeInsets.only(
-              right: bodyMargin, left: bodyMargin, bottom: 8, top: 8),
+              right: Dimens.bodyMargin,
+              left: Dimens.bodyMargin,
+              bottom: 8,
+              top: 8),
           child: Container(
             height: Get.height / 8,
             decoration: const BoxDecoration(

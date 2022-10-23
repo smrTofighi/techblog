@@ -6,15 +6,9 @@ import '../../../core/values/colors.dart';
 import '../../../core/values/strings.dart';
 
 class ProfliePage extends StatelessWidget {
-  const ProfliePage(
-      {Key? key,
-      required this.size,
-      required this.bodyMargin,
-      required this.textTheme})
-      : super(key: key);
-  final Size size;
+  const ProfliePage({Key? key, required this.textTheme}) : super(key: key);
+
   final TextTheme textTheme;
-  final double bodyMargin;
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +54,7 @@ class ProfliePage extends StatelessWidget {
           const SizedBox(
             height: 40.0,
           ),
-          TechDivider(size: size),
+          const TechDivider(),
           InkWell(
             onTap: () {
               //! One thing run
@@ -76,7 +70,7 @@ class ProfliePage extends StatelessWidget {
               ),
             ),
           ),
-          TechDivider(size: size),
+          const TechDivider(),
           InkWell(
             onTap: () {
               //! One thing run
@@ -92,7 +86,7 @@ class ProfliePage extends StatelessWidget {
               ),
             ),
           ),
-          TechDivider(size: size),
+          const TechDivider(),
           InkWell(
             onTap: () {
               //! One thing run

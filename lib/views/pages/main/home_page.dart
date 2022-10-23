@@ -9,15 +9,14 @@ import 'package:tech_blog_app/models/fake_data.dart';
 import '../../../controllers/articles/article_list_controller.dart';
 import '../../../controllers/articles/article_single_controller.dart';
 import '../../../core/values/colors.dart';
+import '../../../core/values/dimens.dart';
 import '../../../core/values/strings.dart';
 import '../articles/article_list_page.dart';
 
 // ignore: must_be_immutable
 class HomePage extends StatelessWidget {
-  HomePage({Key? key, required this.bodyMargin, required this.textTheme})
-      : super(key: key);
+  HomePage({Key? key, required this.textTheme}) : super(key: key);
   final TextTheme textTheme;
-  final double bodyMargin;
   HomeViewController homeViewController = Get.put(HomeViewController());
   ArticleSingleController articleSingleController =
       Get.put(ArticleSingleController());
@@ -58,7 +57,8 @@ class HomePage extends StatelessWidget {
 
                         //? padcats ----------------
                         SeeMorePadcast(
-                            bodyMargin: bodyMargin, textTheme: textTheme),
+                            bodyMargin: Dimens.bodyMargin,
+                            textTheme: textTheme),
 
                         //? padcats posts ----------
                         topPadcasts(),
@@ -85,7 +85,7 @@ class HomePage extends StatelessWidget {
       },
       child: Padding(
         padding: EdgeInsets.only(
-          right: bodyMargin,
+          right: Dimens.bodyMargin,
           bottom: 8,
         ),
         child: Row(
@@ -119,8 +119,8 @@ class HomePage extends StatelessWidget {
                         homeViewController.topVisitedList[index].id);
                   },
                   child: Padding(
-                    padding:
-                        EdgeInsets.only(right: index == 0 ? bodyMargin : 15),
+                    padding: EdgeInsets.only(
+                        right: index == 0 ? Dimens.bodyMargin : 15),
                     child: Column(
                       children: [
                         Padding(
@@ -234,7 +234,8 @@ class HomePage extends StatelessWidget {
         () => ListView.builder(
           itemBuilder: (context, index) {
             return Padding(
-              padding: EdgeInsets.only(right: index == 0 ? bodyMargin : 15),
+              padding:
+                  EdgeInsets.only(right: index == 0 ? Dimens.bodyMargin : 15),
               child: Column(
                 children: [
                   Padding(
@@ -393,8 +394,8 @@ class HomePage extends StatelessWidget {
               ));
             },
             child: Padding(
-                padding:
-                    EdgeInsets.fromLTRB(0, 8, index == 0 ? bodyMargin : 15, 8),
+                padding: EdgeInsets.fromLTRB(
+                    0, 8, index == 0 ? Dimens.bodyMargin : 15, 8),
                 child: MainTags(
                   textTheme: textTheme,
                   index: index,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tech_blog_app/core/styles/text_style.dart';
 import 'package:tech_blog_app/controllers/home/home_view_controller.dart';
+import 'package:tech_blog_app/core/values/dimens.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../core/values/colors.dart';
 import '../../gen/assets.gen.dart';
@@ -29,7 +30,7 @@ PreferredSize appBar(String title) {
             child: Center(
                 child: Text(
               title,
-              style: TextStyles.appBarTextStyle,
+              style: MyTextStyle.appBarTitle,
             )),
           )
         ],
@@ -59,18 +60,15 @@ PreferredSize appBar(String title) {
 class TechDivider extends StatelessWidget {
   const TechDivider({
     Key? key,
-    required this.size,
   }) : super(key: key);
-
-  final Size size;
 
   @override
   Widget build(BuildContext context) {
     return Divider(
       thickness: 1.5,
       color: SolidColors.divider,
-      indent: size.width / 6,
-      endIndent: size.width / 6,
+      indent: Dimens.width / 6,
+      endIndent: Dimens.width / 6,
     );
   }
 }

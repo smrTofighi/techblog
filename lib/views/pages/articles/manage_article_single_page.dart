@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:get/get.dart';
-import 'package:tech_blog_app/views/widgets/component.dart';
 import 'package:tech_blog_app/core/styles/text_style.dart';
 import 'package:tech_blog_app/controllers/articles/manage_article_controller.dart';
 import 'package:tech_blog_app/gen/assets.gen.dart';
@@ -17,8 +16,6 @@ class ManageArticleSinglePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // var size = MediaQuery.of(context).size;
-    // var textTheme = Theme.of(context).textTheme;
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
@@ -69,25 +66,8 @@ class ManageArticleSinglePage extends StatelessWidget {
                                 size: 24,
                               ),
                             ),
-                            const Expanded(child: SizedBox()),
-                            const Icon(
-                              Icons.bookmark_border_rounded,
-                              color: Colors.white,
-                              size: 24,
-                            ),
-                            const SizedBox(
-                              width: 20,
-                            ),
-                            IconButton(
-                              onPressed: () {
-                                myLaunchUrl(manageArticleController
-                                    .articleInfoModel.value.title!);
-                              },
-                              icon: const Icon(
-                                Icons.share,
-                                color: Colors.white,
-                                size: 24,
-                              ),
+                            const Expanded(
+                              child: SizedBox(),
                             ),
                             const SizedBox(
                               width: 20,
@@ -95,16 +75,49 @@ class ManageArticleSinglePage extends StatelessWidget {
                           ],
                         ),
                       ),
-                    )
+                    ),
+                    Positioned(
+                        bottom: 0,
+                        left: 0,
+                        right: 0,
+                        child: Center(
+                          child: Container(
+                            height: 30,
+                            width: Get.width / 3,
+                            decoration: const BoxDecoration(
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(12),
+                                topRight: Radius.circular(12),
+                              ),
+                              color: SolidColors.primery,
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: const [
+                                Text(
+                                  'انتخاب تصویر',
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                                Icon(
+                                  Icons.add,
+                                  color: Colors.white,
+                                )
+                              ],
+                            ),
+                          ),
+                        ))
                   ],
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    manageArticleController.articleInfoModel.value.title!,
-                    style: const TextStyle(
-                        fontWeight: FontWeight.w700, fontSize: 20),
-                    maxLines: 2,
+                  child: Align(
+                    alignment: Alignment.centerRight,
+                    child: Text(
+                      manageArticleController.articleInfoModel.value.title!,
+                      style: const TextStyle(
+                          fontWeight: FontWeight.w700, fontSize: 20),
+                      maxLines: 2,
+                    ),
                   ),
                 ),
 
@@ -120,7 +133,7 @@ class ManageArticleSinglePage extends StatelessWidget {
                         size: 32,
                       ),
                     ),
-                    textStyle: TextStyles.contentArticleSingleViewTextStyle,
+                    textStyle: MyTextStyle.contentArticleSingePage,
                   ),
                 ),
                 const SizedBox(
