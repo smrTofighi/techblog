@@ -2,29 +2,27 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
-import 'package:tech_blog_app/constant/component.dart';
-import 'package:tech_blog_app/constant/colors.dart';
-import 'package:tech_blog_app/constant/strings.dart';
-import 'package:tech_blog_app/controllers/home_view_controller.dart';
+import 'package:tech_blog_app/views/widgets/component.dart';
+import 'package:tech_blog_app/controllers/home/home_view_controller.dart';
 import 'package:tech_blog_app/gen/assets.gen.dart';
 import 'package:tech_blog_app/models/fake_data.dart';
+import '../../../controllers/articles/article_list_controller.dart';
+import '../../../controllers/articles/article_single_controller.dart';
+import '../../../core/values/colors.dart';
+import '../../../core/values/strings.dart';
+import '../articles/article_list_page.dart';
 
-import '../../controllers/articles/article_list_controller.dart';
-import '../../controllers/articles/article_single_controller.dart';
-import '../articles/article_list_view.dart';
-
-
-class HomeView extends StatelessWidget {
-  HomeView(
-      {Key? key,
-      required this.bodyMargin,
-      required this.textTheme})
+// ignore: must_be_immutable
+class HomePage extends StatelessWidget {
+  HomePage({Key? key, required this.bodyMargin, required this.textTheme})
       : super(key: key);
   final TextTheme textTheme;
   final double bodyMargin;
   HomeViewController homeViewController = Get.put(HomeViewController());
-  ArticleSingleController articleSingleController = Get.put(ArticleSingleController());
-  ArticleListController articleListController = Get.put(ArticleListController());
+  ArticleSingleController articleSingleController =
+      Get.put(ArticleSingleController());
+  ArticleListController articleListController =
+      Get.put(ArticleListController());
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -69,21 +67,21 @@ class HomeView extends StatelessWidget {
                       ],
                     )
                   : SizedBox(
-                    height: Get.height,
-                    child: const Center(
-                      child: SpinKitDoubleBounce(
+                      height: Get.height,
+                      child: const Center(
+                        child: SpinKitDoubleBounce(
                           color: SolidColors.primery,
                           size: 32,
                         ),
-                    ),
-                  )),
+                      ),
+                    )),
         ));
   }
 
-  Widget seeMoreArticle(){
+  Widget seeMoreArticle() {
     return InkWell(
       onTap: () {
-        Get.to(ArticleListView(titleAppBar: 'مقالات جدید'));
+        Get.to(ArticleListPage(titleAppBar: 'مقالات جدید'));
       },
       child: Padding(
         padding: EdgeInsets.only(
@@ -117,11 +115,12 @@ class HomeView extends StatelessWidget {
               itemBuilder: (context, index) {
                 return InkWell(
                   onTap: () {
-                   articleSingleController.getArticleInfo(
+                    articleSingleController.getArticleInfo(
                         homeViewController.topVisitedList[index].id);
                   },
                   child: Padding(
-                    padding: EdgeInsets.only(right: index == 0 ? bodyMargin : 15),
+                    padding:
+                        EdgeInsets.only(right: index == 0 ? bodyMargin : 15),
                     child: Column(
                       children: [
                         Padding(
@@ -134,8 +133,6 @@ class HomeView extends StatelessWidget {
                                 CachedNetworkImage(
                                   imageUrl: homeViewController
                                       .topVisitedList[index].image!,
-
-
                                   imageBuilder: ((context, imageProvider) =>
                                       Container(
                                         decoration: BoxDecoration(
@@ -147,7 +144,8 @@ class HomeView extends StatelessWidget {
                                             fit: BoxFit.cover,
                                           ),
                                         ),
-                                        foregroundDecoration: const BoxDecoration(
+                                        foregroundDecoration:
+                                            const BoxDecoration(
                                           borderRadius: BorderRadius.all(
                                             Radius.circular(16.0),
                                           ),
@@ -158,16 +156,11 @@ class HomeView extends StatelessWidget {
                                           ),
                                         ),
                                       )),
-
-
-
                                   placeholder: (context, url) =>
                                       const SpinKitFoldingCube(
                                     color: SolidColors.primery,
                                     size: 32.0,
                                   ),
-
-
                                   errorWidget: (context, url, error) =>
                                       const Icon(
                                     Icons.image_not_supported_outlined,
@@ -385,17 +378,17 @@ class HomeView extends StatelessWidget {
     );
   }
 
-  Widget tags(){
+  Widget tags() {
     return SizedBox(
       height: 60,
       child: ListView.builder(
         itemBuilder: (context, index) {
           return InkWell(
-            onTap: () async{
+            onTap: () async {
               await articleListController.getArticleListWithTagsId(
                   homeViewController.tagsList[index].id!);
               var titleAppBar = homeViewController.tagsList[index].title!;
-              Get.to(ArticleListView(
+              Get.to(ArticleListPage(
                 titleAppBar: titleAppBar,
               ));
             },
@@ -462,4 +455,3 @@ class SeeMorePadcast extends StatelessWidget {
     );
   }
 }
-

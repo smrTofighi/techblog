@@ -2,15 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:tech_blog_app/constant/api_constant.dart';
-import 'package:tech_blog_app/constant/storage.dart';
-import 'package:tech_blog_app/constant/strings.dart';
+import 'package:tech_blog_app/core/values/api_constant.dart';
 import 'package:tech_blog_app/routes/routes.dart';
 import 'package:tech_blog_app/services/dio_service.dart';
-import 'package:tech_blog_app/views/main_view/main_view.dart';
-import 'package:tech_blog_app/views/register/register_into_view.dart';
-
-import '../gen/assets.gen.dart';
+import 'package:tech_blog_app/views/pages/main/main_page.dart';
+import 'package:tech_blog_app/views/pages/register/register_into_page.dart';
+import '../../core/values/storage.dart';
+import '../../core/values/strings.dart';
+import '../../gen/assets.gen.dart';
 
 class RegisterController extends GetxController {
   TextEditingController emailTextEditingController = TextEditingController();
@@ -50,7 +49,7 @@ class RegisterController extends GetxController {
 
         debugPrint('test: ' + box.read(StorageKey.token).toString());
         debugPrint('test: ' + box.read(StorageKey.userid).toString());
-        Get.offAll(MainView());
+        Get.offAll(MainPage());
         break;
       case 'incorrect_code':
         Get.snackbar('خطا', 'کد فعال سازی اشتباه است!');
@@ -63,7 +62,7 @@ class RegisterController extends GetxController {
 
   checkLogin() {
     if (GetStorage().read(StorageKey.token) == null) {
-      Get.to(RegisterIntoView());
+      Get.to(RegisterIntoPage());
     } else {
       routeToWriteBottomSheet();
     }
@@ -111,7 +110,7 @@ class RegisterController extends GetxController {
                 InkWell(
                   onTap: () {
                     Get.back();
-                    Get.toNamed(NameRoute.routeManageArticleView);
+                    Get.toNamed(NameRoute.routeManageArticlePage);
                   },
                   child: SizedBox(
                     child: Row(

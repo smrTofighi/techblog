@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:tech_blog_app/constant/api_constant.dart';
+import 'package:tech_blog_app/core/values/api_constant.dart';
 import 'package:tech_blog_app/models/article_model.dart';
 import 'package:tech_blog_app/models/padcats_model.dart';
 import 'package:tech_blog_app/models/poster_model.dart';

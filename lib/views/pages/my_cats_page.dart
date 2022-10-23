@@ -2,22 +2,22 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:tech_blog_app/constant/component.dart';
-import 'package:tech_blog_app/constant/strings.dart';
-import 'package:tech_blog_app/controllers/home_view_controller.dart';
+import 'package:tech_blog_app/views/widgets/component.dart';
+import 'package:tech_blog_app/controllers/home/home_view_controller.dart';
 import 'package:tech_blog_app/gen/assets.gen.dart';
 import 'package:tech_blog_app/models/fake_data.dart';
 
-import '../constant/colors.dart';
+import '../../core/values/colors.dart';
+import '../../core/values/strings.dart';
 
-class MyCatsView extends StatefulWidget {
-  const MyCatsView({Key? key}) : super(key: key);
+class MyCatsPage extends StatefulWidget {
+  const MyCatsPage({Key? key}) : super(key: key);
 
   @override
-  State<MyCatsView> createState() => _MyCatsViewState();
+  State<MyCatsPage> createState() => _MyCatsPageState();
 }
 
-class _MyCatsViewState extends State<MyCatsView> {
+class _MyCatsPageState extends State<MyCatsPage> {
   @override
   Widget build(BuildContext context) {
     var textTheme = Theme.of(context).textTheme;

@@ -1,8 +1,8 @@
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:tech_blog_app/constant/storage.dart';
 import 'package:tech_blog_app/models/article_model.dart';
-import '../../constant/api_constant.dart';
+import '../../core/values/api_constant.dart';
+import '../../core/values/storage.dart';
 import '../../services/dio_service.dart';
 
 class ArticleListController extends GetxController {

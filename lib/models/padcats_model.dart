@@ -1,5 +1,3 @@
-import 'package:tech_blog_app/constant/api_constant.dart';
-
 class PadcastModel {
   String? id;
   String? title;
@@ -8,20 +6,18 @@ class PadcastModel {
   String? view;
   String? createdAt;
   PadcastModel(
-    {
-      required this.id,
+      {required this.id,
       required this.title,
       required this.poster,
       required this.publisher,
       required this.view,
-      required this.createdAt
-    }
-  );
+      required this.createdAt});
 
-  PadcastModel.fromJson(Map<String,dynamic> element){
+  PadcastModel.fromJson(Map<String, dynamic> element) {
     id = element['id'];
     title = element['title'];
-    poster = 'https://techblog.sasansafari.com/Techblog/api' + element['poster'];
+    poster =
+        'https://techblog.sasansafari.com/Techblog/api' + element['poster'];
     publisher = element['publisher'];
     view = element['view'];
     createdAt = element['created_at'];

@@ -3,16 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:tech_blog_app/constant/colors.dart';
-import 'package:tech_blog_app/constant/component.dart';
-import 'package:tech_blog_app/constant/strings.dart';
+import 'package:tech_blog_app/views/widgets/component.dart';
 import 'package:tech_blog_app/controllers/articles/manage_article_controller.dart';
 import 'package:tech_blog_app/gen/assets.gen.dart';
 import 'package:tech_blog_app/routes/routes.dart';
+import '../../../core/values/colors.dart';
+import '../../../core/values/strings.dart';
 
 // ignore: must_be_immutable
-class ManageArticleView extends StatelessWidget {
-  ManageArticleView({Key? key}) : super(key: key);
+class ManageArticlePage extends StatelessWidget {
+  ManageArticlePage({Key? key}) : super(key: key);
 
   var manageArticleController = Get.find<ManageArticleController>();
 
@@ -43,21 +43,21 @@ class ManageArticleView extends StatelessWidget {
 
   Widget elevatedButton() {
     return Padding(
-        padding: const EdgeInsets.fromLTRB(12,0,12,12),
-        child: ElevatedButton(
-          onPressed: () {
-            Get.toNamed(NameRoute.routeManageArticleSingleView);
-          },
-          style: ButtonStyle(
-            fixedSize: MaterialStateProperty.all(
-              Size(Get.width / 4, 56),
-            ),
-          ),
-          child: const Text(
-            ValueStrings.letsGoToWriteArticle,
+      padding: const EdgeInsets.fromLTRB(12, 0, 12, 12),
+      child: ElevatedButton(
+        onPressed: () {
+          Get.toNamed(NameRoute.routeManageArticleSinglePage);
+        },
+        style: ButtonStyle(
+          fixedSize: MaterialStateProperty.all(
+            Size(Get.width / 4, 56),
           ),
         ),
-      );
+        child: const Text(
+          ValueStrings.letsGoToWriteArticle,
+        ),
+      ),
+    );
   }
 
   ListView publishedArticlesByMe(TextTheme textTheme) {

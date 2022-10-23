@@ -2,15 +2,14 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
+import '../../widgets/component.dart';
+import '../../../controllers/articles/article_list_controller.dart';
+import '../../../controllers/articles/article_single_controller.dart';
+import '../../../core/values/colors.dart';
 
-import '../../constant/colors.dart';
-import '../../constant/component.dart';
-import '../../controllers/articles/article_list_controller.dart';
-import '../../controllers/articles/article_single_controller.dart';
-
-
-class ArticleListView extends StatelessWidget {
-  ArticleListView({Key? key, required this.titleAppBar}) : super(key: key);
+// ignore: must_be_immutable
+class ArticleListPage extends StatelessWidget {
+  ArticleListPage({Key? key, required this.titleAppBar}) : super(key: key);
   String titleAppBar;
   ArticleListController listArticleController =
       Get.put(ArticleListController());
@@ -28,7 +27,7 @@ class ArticleListView extends StatelessWidget {
             () => ListView.builder(
               scrollDirection: Axis.vertical,
               itemBuilder: (context, index) => InkWell(
-                onTap: (() async{
+                onTap: (() async {
                   await articleSingleController.getArticleInfo(
                       listArticleController.articleList[index].id);
                 }),

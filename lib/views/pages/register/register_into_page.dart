@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:tech_blog_app/constant/strings.dart';
-import 'package:tech_blog_app/controllers/register_controller.dart';
+import 'package:tech_blog_app/controllers/register/register_controller.dart';
 import 'package:tech_blog_app/gen/assets.gen.dart';
 import 'package:validators/validators.dart';
 
-class RegisterIntoView extends StatelessWidget {
-  RegisterIntoView({Key? key}) : super(key: key);
+import '../../../core/values/strings.dart';
+
+// ignore: must_be_immutable
+class RegisterIntoPage extends StatelessWidget {
+  RegisterIntoPage({Key? key}) : super(key: key);
 
   var registerController = Get.find<RegisterController>();
 

@@ -3,24 +3,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:get/get.dart';
-import 'package:tech_blog_app/constant/colors.dart';
-import 'package:tech_blog_app/constant/component.dart';
-import 'package:tech_blog_app/constant/text_style.dart';
+import 'package:tech_blog_app/views/widgets/component.dart';
+import 'package:tech_blog_app/core/styles/text_style.dart';
 import 'package:tech_blog_app/controllers/articles/manage_article_controller.dart';
 import 'package:tech_blog_app/gen/assets.gen.dart';
-import '../../constant/strings.dart';
-import '../../controllers/articles/article_list_controller.dart';
-import 'article_list_view.dart';
+import '../../../core/values/colors.dart';
 
-class ManageArticleSingleView extends StatelessWidget {
+// ignore: must_be_immutable
+class ManageArticleSinglePage extends StatelessWidget {
   var manageArticleController = Get.find<ManageArticleController>();
 
-  ManageArticleSingleView({Key? key}) : super(key: key);
+  ManageArticleSinglePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
-    var textTheme = Theme.of(context).textTheme;
+    // var size = MediaQuery.of(context).size;
+    // var textTheme = Theme.of(context).textTheme;
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(

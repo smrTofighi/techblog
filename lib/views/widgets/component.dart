@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:tech_blog_app/constant/text_style.dart';
-import 'package:tech_blog_app/controllers/home_view_controller.dart';
+import 'package:tech_blog_app/core/styles/text_style.dart';
+import 'package:tech_blog_app/controllers/home/home_view_controller.dart';
 import 'package:url_launcher/url_launcher.dart';
-import '../gen/assets.gen.dart';
-import 'colors.dart';
+import '../../core/values/colors.dart';
+import '../../gen/assets.gen.dart';
 
 myLaunchUrl(String url) async {
   var uri = Uri.parse(url);
@@ -42,9 +42,12 @@ PreferredSize appBar(String title) {
                 color: SolidColors.primery.withBlue(100),
                 shape: BoxShape.circle),
             child: Center(
-              child: IconButton(onPressed: (){
-                Get.back();
-              }, icon: const Icon(Icons.keyboard_arrow_right_rounded),),
+              child: IconButton(
+                onPressed: () {
+                  Get.back();
+                },
+                icon: const Icon(Icons.keyboard_arrow_right_rounded),
+              ),
             ),
           ),
         ),

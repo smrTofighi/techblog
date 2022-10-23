@@ -1,21 +1,19 @@
-import 'package:tech_blog_app/constant/api_constant.dart';
+import 'package:tech_blog_app/core/values/api_constant.dart';
 
-class PosterModel{
+class PosterModel {
   String? id;
   String? title;
   String? image;
 
-  PosterModel(
-    {
-      this.id,
-      this.title,
-      this.image,
-    }
-  );
+  PosterModel({
+    this.id,
+    this.title,
+    this.image,
+  });
 
-  PosterModel.fromJson(Map<String,dynamic> element){
+  PosterModel.fromJson(Map<String, dynamic> element) {
     id = element['id'];
     title = element['title'];
-    image =ApiConstant.hostDlUrl + element['image'];
+    image = ApiConstant.hostDlUrl + element['image'];
   }
 }

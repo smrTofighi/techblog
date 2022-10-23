@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:tech_blog_app/constant/colors.dart';
-import 'package:tech_blog_app/constant/component.dart';
-import 'package:tech_blog_app/constant/strings.dart';
+import 'package:tech_blog_app/views/widgets/component.dart';
 import 'package:tech_blog_app/gen/assets.gen.dart';
 
-class ProflieView extends StatelessWidget {
-  const ProflieView(
+import '../../../core/values/colors.dart';
+import '../../../core/values/strings.dart';
+
+class ProfliePage extends StatelessWidget {
+  const ProfliePage(
       {Key? key,
       required this.size,
       required this.bodyMargin,

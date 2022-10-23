@@ -3,23 +3,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:get/get.dart';
-import 'package:tech_blog_app/constant/colors.dart';
-import 'package:tech_blog_app/constant/component.dart';
-import 'package:tech_blog_app/constant/text_style.dart';
+import 'package:tech_blog_app/views/widgets/component.dart';
+import 'package:tech_blog_app/core/styles/text_style.dart';
 import 'package:tech_blog_app/gen/assets.gen.dart';
+import '../../../controllers/articles/article_list_controller.dart';
+import '../../../controllers/articles/article_single_controller.dart';
+import '../../../core/values/colors.dart';
+import '../../../core/values/strings.dart';
+import 'article_list_page.dart';
 
-import '../../constant/strings.dart';
-import '../../controllers/articles/article_list_controller.dart';
-import '../../controllers/articles/article_single_controller.dart';
-import 'article_list_view.dart';
+// ignore: must_be_immutable
+class ArticleSinglePage extends StatelessWidget {
+  var articleSingleController = Get.find<ArticleSingleController>();
 
-
-
-class ArticleSingleView extends StatelessWidget {
-  var articleSingleController =
-     Get.find<ArticleSingleController>();
-
-  ArticleSingleView({Key? key}) : super(key: key);
+  ArticleSinglePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -74,13 +71,16 @@ class ArticleSingleView extends StatelessWidget {
                                   const SizedBox(
                                     width: 20,
                                   ),
-                                  IconButton(onPressed: (){
-                                    Get.back();
-                                  }, icon: const Icon(
-                                    Icons.arrow_back,
-                                    color: Colors.white,
-                                    size: 24,
-                                  ),),
+                                  IconButton(
+                                    onPressed: () {
+                                      Get.back();
+                                    },
+                                    icon: const Icon(
+                                      Icons.arrow_back,
+                                      color: Colors.white,
+                                      size: 24,
+                                    ),
+                                  ),
                                   const Expanded(child: SizedBox()),
                                   const Icon(
                                     Icons.bookmark_border_rounded,
@@ -90,13 +90,17 @@ class ArticleSingleView extends StatelessWidget {
                                   const SizedBox(
                                     width: 20,
                                   ),
-                                  IconButton(onPressed: (){
-                                    myLaunchUrl(articleSingleController.articleInfoModel.value.title!);
-                                  }, icon: const Icon(
-                                    Icons.share,
-                                    color: Colors.white,
-                                    size: 24,
-                                  ),),
+                                  IconButton(
+                                    onPressed: () {
+                                      myLaunchUrl(articleSingleController
+                                          .articleInfoModel.value.title!);
+                                    },
+                                    icon: const Icon(
+                                      Icons.share,
+                                      color: Colors.white,
+                                      size: 24,
+                                    ),
+                                  ),
                                   const SizedBox(
                                     width: 20,
                                   ),
@@ -321,7 +325,7 @@ class ArticleSingleView extends StatelessWidget {
               await Get.find<ArticleListController>().getArticleListWithTagsId(
                   articleSingleController.tags[index].id!);
               var titleAppBar = articleSingleController.tags[index].title!;
-              Get.to(ArticleListView(
+              Get.to(ArticleListPage(
                 titleAppBar: titleAppBar,
               ));
             },

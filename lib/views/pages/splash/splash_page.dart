@@ -1,24 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
-import 'package:tech_blog_app/constant/colors.dart';
 import 'package:tech_blog_app/gen/assets.gen.dart';
 import 'package:tech_blog_app/routes/routes.dart';
+import '../../../core/values/colors.dart';
 
-class SplashView extends StatefulWidget {
-  const SplashView({Key? key}) : super(key: key);
+class SplashPage extends StatefulWidget {
+  const SplashPage({Key? key}) : super(key: key);
 
   @override
-  State<SplashView> createState() => _SplashViewState();
+  State<SplashPage> createState() => _SplashPageState();
 }
 
-class _SplashViewState extends State<SplashView> {
+class _SplashPageState extends State<SplashPage> {
   //const SplashScreen ({ Key? key }) : super(key: key);
   @override
   void initState() {
     super.initState();
     Future.delayed(const Duration(seconds: 3)).then((value) {
-      Get.offNamed(NameRoute.routeMainView);
+      Get.offNamed(NameRoute.routeMainPage);
     });
   }
 

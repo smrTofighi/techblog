@@ -1,22 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:tech_blog_app/constant/colors.dart';
-import 'package:tech_blog_app/constant/component.dart';
-import 'package:tech_blog_app/constant/strings.dart';
-import 'package:tech_blog_app/controllers/register_controller.dart';
+import 'package:tech_blog_app/views/widgets/component.dart';
+import 'package:tech_blog_app/controllers/register/register_controller.dart';
 import 'package:tech_blog_app/gen/assets.gen.dart';
-import 'package:tech_blog_app/views/main_view/profile_view.dart';
-
-import 'home_view.dart';
+import 'package:tech_blog_app/views/pages/main/profile_page.dart';
+import '../../../core/values/colors.dart';
+import '../../../core/values/strings.dart';
+import 'home_page.dart';
 
 final GlobalKey<ScaffoldState> _key = GlobalKey();
 
 // ignore: must_be_immutable
-class MainView extends StatelessWidget {
+class MainPage extends StatelessWidget {
   RxInt selectedPageIndex = 0.obs;
 
-  MainView({Key? key}) : super(key: key);
+  MainPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -122,10 +121,8 @@ class MainView extends StatelessWidget {
                 () => IndexedStack(
                   index: selectedPageIndex.value,
                   children: [
-                    HomeView(
-                        bodyMargin: bodyMargin,
-                        textTheme: textTheme),
-                    ProflieView(
+                    HomePage(bodyMargin: bodyMargin, textTheme: textTheme),
+                    ProfliePage(
                         size: size,
                         bodyMargin: bodyMargin,
                         textTheme: textTheme),

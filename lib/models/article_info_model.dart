@@ -1,4 +1,4 @@
-import 'package:tech_blog_app/constant/api_constant.dart';
+import 'package:tech_blog_app/core/values/api_constant.dart';
 
 class ArticleInfoModel {
   String? id;
@@ -18,7 +18,6 @@ class ArticleInfoModel {
     this.content,
     this.image,
     this.catName,
-
   });
 
   ArticleInfoModel.fromJson(Map<String, dynamic> element) {
