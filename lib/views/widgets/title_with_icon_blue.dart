@@ -20,7 +20,7 @@ class TitleWithIconBlue extends StatelessWidget {
       onTap: onPressed,
       child: Padding(
         padding: EdgeInsets.only(
-          right: Dimens.bodyMargin,
+          right: Dimens.bodyMargin / 2,
           bottom: 8,
         ),
         child: Row(

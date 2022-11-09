@@ -1,5 +1,6 @@
 import 'package:get/route_manager.dart';
 import 'package:tech_blog_app/bindings/bindings.dart';
+import 'package:tech_blog_app/routes/pages.dart';
 import 'package:tech_blog_app/views/pages/articles/article_single_page.dart';
 import 'package:tech_blog_app/views/pages/articles/manage_article_page.dart';
 import 'package:tech_blog_app/views/pages/articles/manage_article_single_page.dart';
@@ -7,26 +8,19 @@ import 'package:tech_blog_app/views/pages/main/main_page.dart';
 
 List<GetPage> routes = [
   GetPage(
-      name: NameRoute.routeMainPage,
+      name: NameRoutes.routeMainPage,
       page: () => MainPage(),
       binding: RegisterBinding()),
   GetPage(
-      name: NameRoute.routeArticleSinglePage,
+      name: NameRoutes.routeArticleSinglePage,
       page: () => ArticleSinglePage(),
       binding: ArticleBinding()),
   GetPage(
-      name: NameRoute.routeManageArticlePage,
+      name: NameRoutes.routeManageArticlePage,
       page: () => ManageArticlePage(),
       binding: ArticleManagerBinding()),
   GetPage(
-      name: NameRoute.routeManageArticleSinglePage,
+      name: NameRoutes.routeManageArticleSinglePage,
       page: () => ManageArticleSinglePage(),
       binding: ArticleManagerBinding()),
 ];
-
-class NameRoute {
-  static const String routeMainPage = '/MainPage';
-  static const String routeArticleSinglePage = '/ArticleSinglePage';
-  static const String routeManageArticlePage = '/ManageArticlePage';
-  static const String routeManageArticleSinglePage = '/ManageArticleSinglePage';
-}

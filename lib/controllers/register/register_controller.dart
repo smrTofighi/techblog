@@ -3,7 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:tech_blog_app/core/values/api_constant.dart';
-import 'package:tech_blog_app/routes/routes.dart';
+import 'package:tech_blog_app/routes/pages.dart';
 import 'package:tech_blog_app/services/dio_service.dart';
 import 'package:tech_blog_app/views/pages/main/main_page.dart';
 import 'package:tech_blog_app/views/pages/register/register_into_page.dart';
@@ -110,7 +110,7 @@ class RegisterController extends GetxController {
                 InkWell(
                   onTap: () {
                     Get.back();
-                    Get.toNamed(NameRoute.routeManageArticlePage);
+                    Get.toNamed(NameRoutes.routeManageArticlePage);
                   },
                   child: SizedBox(
                     child: Row(

@@ -5,7 +5,9 @@ import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:get/get.dart';
 import 'package:tech_blog_app/core/styles/text_style.dart';
 import 'package:tech_blog_app/controllers/articles/manage_article_controller.dart';
+import 'package:tech_blog_app/core/values/dimens.dart';
 import 'package:tech_blog_app/gen/assets.gen.dart';
+import 'package:tech_blog_app/views/widgets/title_with_icon_blue.dart';
 import '../../../core/values/colors.dart';
 
 // ignore: must_be_immutable
@@ -108,8 +110,14 @@ class ManageArticleSinglePage extends StatelessWidget {
                         ))
                   ],
                 ),
+                const SizedBox(
+                  height: 16.0,
+                ),
+                TitleWithIconBlue(
+                    title: 'ویرایش عنوان مقاله', onPressed: () {}),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: EdgeInsets.symmetric(
+                      vertical: 8.0, horizontal: Dimens.bodyMargin / 2),
                   child: Align(
                     alignment: Alignment.centerRight,
                     child: Text(
@@ -120,9 +128,14 @@ class ManageArticleSinglePage extends StatelessWidget {
                     ),
                   ),
                 ),
-
+                const SizedBox(
+                  height: 8.0,
+                ),
+                TitleWithIconBlue(
+                    title: 'ویرایش متن اصلی مقاله', onPressed: () {}),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: EdgeInsets.symmetric(
+                      vertical: 8.0, horizontal: Dimens.bodyMargin / 2),
                   child: HtmlWidget(
                     manageArticleController.articleInfoModel.value.content!,
                     enableCaching: true,
@@ -139,6 +152,8 @@ class ManageArticleSinglePage extends StatelessWidget {
                 const SizedBox(
                   height: 25,
                 ),
+                TitleWithIconBlue(
+                    title: 'ویرایش دسته بندی ها', onPressed: () {}),
                 // tagsList(textTheme),
                 const SizedBox(
                   height: 25,

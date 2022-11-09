@@ -3,18 +3,8 @@ import 'package:get/get.dart';
 import 'package:tech_blog_app/core/styles/text_style.dart';
 import 'package:tech_blog_app/controllers/home/home_view_controller.dart';
 import 'package:tech_blog_app/core/values/dimens.dart';
-import 'package:url_launcher/url_launcher.dart';
 import '../../core/values/colors.dart';
 import '../../gen/assets.gen.dart';
-
-myLaunchUrl(String url) async {
-  var uri = Uri.parse(url);
-  if (await canLaunchUrl(uri)) {
-    await launchUrl(uri);
-  } else {
-    await launchUrl(uri);
-  }
-}
 
 PreferredSize appBar(String title) {
   return PreferredSize(

@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:tech_blog_app/routes/pages.dart';
 import 'package:tech_blog_app/views/widgets/component.dart';
 import 'package:tech_blog_app/controllers/articles/manage_article_controller.dart';
 import 'package:tech_blog_app/gen/assets.gen.dart';
-import 'package:tech_blog_app/routes/routes.dart';
 import '../../../core/values/colors.dart';
 import '../../../core/values/strings.dart';
 
@@ -46,7 +46,7 @@ class ManageArticlePage extends StatelessWidget {
       padding: const EdgeInsets.fromLTRB(12, 0, 12, 12),
       child: ElevatedButton(
         onPressed: () {
-          Get.toNamed(NameRoute.routeManageArticleSinglePage);
+          Get.toNamed(NameRoutes.routeManageArticleSinglePage);
         },
         style: ButtonStyle(
           fixedSize: MaterialStateProperty.all(

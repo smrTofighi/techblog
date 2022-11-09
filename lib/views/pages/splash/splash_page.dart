@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:tech_blog_app/gen/assets.gen.dart';
-import 'package:tech_blog_app/routes/routes.dart';
+import 'package:tech_blog_app/routes/pages.dart';
 import '../../../core/values/colors.dart';
 
 class SplashPage extends StatefulWidget {
@@ -18,7 +18,7 @@ class _SplashPageState extends State<SplashPage> {
   void initState() {
     super.initState();
     Future.delayed(const Duration(seconds: 3)).then((value) {
-      Get.offNamed(NameRoute.routeMainPage);
+      Get.offNamed(NameRoutes.routeMainPage);
     });
   }
 
