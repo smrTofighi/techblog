@@ -1,10 +1,14 @@
+import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:get/get.dart';
+import 'package:tech_blog_app/controllers/file_controller.dart';
 import 'package:tech_blog_app/core/styles/text_style.dart';
 import 'package:tech_blog_app/controllers/articles/manage_article_controller.dart';
+import 'package:tech_blog_app/core/utils/file_picker.dart';
 import 'package:tech_blog_app/core/values/dimens.dart';
 import 'package:tech_blog_app/gen/assets.gen.dart';
 import 'package:tech_blog_app/views/widgets/title_with_icon_blue.dart';
@@ -13,6 +17,7 @@ import '../../../core/values/colors.dart';
 // ignore: must_be_immutable
 class ManageArticleSinglePage extends StatelessWidget {
   var manageArticleController = Get.find<ManageArticleController>();
+  FileController fileController = Get.put(FileController());
 
   ManageArticleSinglePage({Key? key}) : super(key: key);
 
@@ -26,19 +31,30 @@ class ManageArticleSinglePage extends StatelessWidget {
               children: [
                 Stack(
                   children: [
-                    CachedNetworkImage(
-                      imageUrl:
-                          manageArticleController.articleInfoModel.value.image!,
-                      imageBuilder: (context, imageProvider) =>
-                          Image(image: imageProvider),
-                      placeholder: (context, url) => const Center(
-                        child: SpinKitDoubleBounce(
-                          color: SolidColors.primery,
-                          size: 32,
-                        ),
-                      ),
-                      errorWidget: (context, url, error) =>
-                          Image.asset(Assets.images.posterTest.path),
+                    SizedBox(
+                      width: Dimens.width,
+                      height: Dimens.height / 3,
+                      child: fileController.file.value.name == 'nothing'
+                          ? CachedNetworkImage(
+                              imageUrl: manageArticleController
+                                  .articleInfoModel.value.image!,
+                              imageBuilder: (context, imageProvider) =>
+                                  Image(image: imageProvider),
+                              placeholder: (context, url) => const Center(
+                                child: SpinKitDoubleBounce(
+                                  color: SolidColors.primery,
+                                  size: 32,
+                                ),
+                              ),
+                              errorWidget: (context, url, error) =>
+                                  Image.asset(Assets.images.posterTest.path),
+                            )
+                          : Image.file(
+                              File(
+                                fileController.file.value.path!,
+                              ),
+                              fit: BoxFit.cover,
+                            ),
                     ),
                     Positioned(
                       left: 0,
@@ -83,28 +99,33 @@ class ManageArticleSinglePage extends StatelessWidget {
                         left: 0,
                         right: 0,
                         child: Center(
-                          child: Container(
-                            height: 30,
-                            width: Get.width / 3,
-                            decoration: const BoxDecoration(
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(12),
-                                topRight: Radius.circular(12),
-                              ),
-                              color: SolidColors.primery,
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: const [
-                                Text(
-                                  'انتخاب تصویر',
-                                  style: TextStyle(color: Colors.white),
+                          child: InkWell(
+                            onTap: () {
+                              filePicker();
+                            },
+                            child: Container(
+                              height: 30,
+                              width: Get.width / 3,
+                              decoration: const BoxDecoration(
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(12),
+                                  topRight: Radius.circular(12),
                                 ),
-                                Icon(
-                                  Icons.add,
-                                  color: Colors.white,
-                                )
-                              ],
+                                color: SolidColors.primery,
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: const [
+                                  Text(
+                                    'انتخاب تصویر',
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                  Icon(
+                                    Icons.add,
+                                    color: Colors.white,
+                                  )
+                                ],
+                              ),
                             ),
                           ),
                         ))
