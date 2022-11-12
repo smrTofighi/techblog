@@ -43,6 +43,7 @@ dependencies:
   validators: ^3.0.0
   get_storage: ^2.0.3
   file_picker: ^5.0.1
+  html_editor_enhanced: ^1.8.0
 
 dev_dependencies:
   # The "flutter_lints" package below contains a set of recommended lints to

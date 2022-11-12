@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:tech_blog_app/models/article_info_model.dart';
@@ -11,6 +12,7 @@ class ManageArticleController extends GetxController {
   RxList<ArticleModel> articleList = RxList.empty();
   RxList<TagModel> tags = RxList.empty();
   RxBool loading = false.obs;
+  TextEditingController titleEditingController = TextEditingController();
   Rx<ArticleInfoModel> articleInfoModel = ArticleInfoModel(
     title: 'اینجا باید سرتیتر خبر رو بنویسی',
     content: '''
@@ -22,6 +24,12 @@ class ManageArticleController extends GetxController {
   onInit() {
     super.onInit();
     getManagedArticle();
+  }
+
+  updateTitle() {
+    articleInfoModel.update((val) {
+      val!.title = titleEditingController.text;
+    });
   }
 
   getManagedArticle() async {

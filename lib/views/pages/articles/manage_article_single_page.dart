@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -20,6 +19,28 @@ class ManageArticleSinglePage extends StatelessWidget {
   FileController fileController = Get.put(FileController());
 
   ManageArticleSinglePage({Key? key}) : super(key: key);
+  getTile() {
+    Get.defaultDialog(
+      title: 'عنوان مقاله',
+      content: TextField(
+        controller: manageArticleController.titleEditingController,
+        decoration: const InputDecoration(hintText: 'اینجا بنویس'),
+        keyboardType: TextInputType.text,
+        style: const TextStyle(
+          color: SolidColors.blueTitle,
+        ),
+      ),
+      backgroundColor: SolidColors.primery,
+      titleStyle: const TextStyle(color: Colors.white),
+      confirm: ElevatedButton(
+        onPressed: () {
+          manageArticleController.updateTitle();
+          Get.back();
+        },
+        child: const Text('ثبت'),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,8 +67,10 @@ class ManageArticleSinglePage extends StatelessWidget {
                                   size: 32,
                                 ),
                               ),
-                              errorWidget: (context, url, error) =>
-                                  Image.asset(Assets.images.posterTest.path),
+                              errorWidget: (context, url, error) => Image.asset(
+                                Assets.images.posterTest.path,
+                                fit: BoxFit.cover,
+                              ),
                             )
                           : Image.file(
                               File(
@@ -135,7 +158,10 @@ class ManageArticleSinglePage extends StatelessWidget {
                   height: 16.0,
                 ),
                 TitleWithIconBlue(
-                    title: 'ویرایش عنوان مقاله', onPressed: () {}),
+                    title: 'ویرایش عنوان مقاله',
+                    onPressed: () {
+                      getTile();
+                    }),
                 Padding(
                   padding: EdgeInsets.symmetric(
                       vertical: 8.0, horizontal: Dimens.bodyMargin / 2),
