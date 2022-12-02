@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:tech_blog_app/views/widgets/component.dart';
-import 'package:tech_blog_app/controllers/home/home_view_controller.dart';
+import 'package:tech_blog_app/controllers/home/home_page_controller.dart';
 import 'package:tech_blog_app/gen/assets.gen.dart';
 import 'package:tech_blog_app/models/fake_data.dart';
 
@@ -88,7 +88,7 @@ class _MyCatsPageState extends State<MyCatsPage> {
                             child: MainTags(
                               textTheme: textTheme,
                               index: index,
-                              listItem: Get.find<HomeViewController>().tagsList,
+                              listItem: Get.find<HomePageController>().tagsList,
                             ),
                           );
                         },

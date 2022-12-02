@@ -5,11 +5,13 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:get/get.dart';
 import 'package:tech_blog_app/controllers/file_controller.dart';
+import 'package:tech_blog_app/controllers/home/home_page_controller.dart';
 import 'package:tech_blog_app/core/styles/text_style.dart';
 import 'package:tech_blog_app/controllers/articles/manage_article_controller.dart';
 import 'package:tech_blog_app/core/utils/file_picker.dart';
 import 'package:tech_blog_app/core/values/dimens.dart';
 import 'package:tech_blog_app/gen/assets.gen.dart';
+import 'package:tech_blog_app/views/pages/articles/article_content_editor_page.dart';
 import 'package:tech_blog_app/views/widgets/title_with_icon_blue.dart';
 import '../../../core/values/colors.dart';
 
@@ -44,6 +46,7 @@ class ManageArticleSinglePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var textTheme = Theme.of(context).textTheme;
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
@@ -179,7 +182,10 @@ class ManageArticleSinglePage extends StatelessWidget {
                   height: 8.0,
                 ),
                 TitleWithIconBlue(
-                    title: 'ویرایش متن اصلی مقاله', onPressed: () {}),
+                    title: 'ویرایش متن اصلی مقاله',
+                    onPressed: () {
+                      Get.to(ArticleContentEditorPage());
+                    }),
                 Padding(
                   padding: EdgeInsets.symmetric(
                       vertical: 8.0, horizontal: Dimens.bodyMargin / 2),
@@ -200,7 +206,10 @@ class ManageArticleSinglePage extends StatelessWidget {
                   height: 25,
                 ),
                 TitleWithIconBlue(
-                    title: 'ویرایش دسته بندی ها', onPressed: () {}),
+                    title: 'ویرایش دسته بندی ها',
+                    onPressed: () {
+                      choiceCatsBottomSheet(textTheme);
+                    }),
                 // tagsList(textTheme),
                 const SizedBox(
                   height: 25,
@@ -213,11 +222,12 @@ class ManageArticleSinglePage extends StatelessWidget {
     );
   }
 
-  Widget tagsList(TextTheme textTheme) {
+  Widget cats(TextTheme textTheme) {
+    var homeController = Get.find<HomePageController>();
     return SizedBox(
-      height: 55,
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
+      height: Dimens.height / 1.6,
+      child: GridView.builder(
+        scrollDirection: Axis.vertical,
         itemBuilder: (context, index) => Padding(
           padding: const EdgeInsets.all(8.0),
           child: InkWell(
@@ -228,21 +238,52 @@ class ManageArticleSinglePage extends StatelessWidget {
                   borderRadius: BorderRadius.all(
                     Radius.circular(24),
                   ),
-                  color: Color.fromARGB(255, 242, 242, 242)),
+                  color: SolidColors.primery),
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Center(
-                  child: Text(
-                    manageArticleController.tags[index].title!,
-                    style: textTheme.headline4,
+                  child: Center(
+                    child: Text(
+                      homeController.tagsList[index].title!,
+                      style: const TextStyle(color: Colors.white),
+                    ),
                   ),
                 ),
               ),
             ),
           ),
         ),
-        itemCount: manageArticleController.tags.length,
+        itemCount: homeController.tagsList.length,
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 3, crossAxisSpacing: 5, mainAxisSpacing: 5),
       ),
     );
+  }
+
+  choiceCatsBottomSheet(TextTheme textTheme) {
+    Get.bottomSheet(
+        Container(
+          height: Dimens.height / 1.4,
+          decoration: const BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(20),
+                topRight: Radius.circular(20),
+              )),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              children: [
+                const Text('انتخاب دسته بندی'),
+                const SizedBox(
+                  height: 8.0,
+                ),
+                cats(textTheme)
+              ],
+            ),
+          ),
+        ),
+        isScrollControlled: true,
+        persistent: true);
   }
 }

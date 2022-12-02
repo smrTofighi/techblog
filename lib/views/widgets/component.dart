@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tech_blog_app/core/styles/text_style.dart';
-import 'package:tech_blog_app/controllers/home/home_view_controller.dart';
+import 'package:tech_blog_app/controllers/home/home_page_controller.dart';
 import 'package:tech_blog_app/core/values/dimens.dart';
 import '../../core/values/colors.dart';
 import '../../gen/assets.gen.dart';
@@ -100,7 +100,7 @@ class MainTags extends StatelessWidget {
               width: 8.0,
             ),
             Text(
-              Get.find<HomeViewController>().tagsList[index].title!,
+              Get.find<HomePageController>().tagsList[index].title!,
               style: textTheme.headline2,
             ),
           ],

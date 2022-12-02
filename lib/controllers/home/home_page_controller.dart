@@ -6,7 +6,7 @@ import 'package:tech_blog_app/models/poster_model.dart';
 import 'package:tech_blog_app/models/tag_model.dart';
 import 'package:tech_blog_app/services/dio_service.dart';
 
-class HomeViewController extends GetxController {
+class HomePageController extends GetxController {
   Rx<PosterModel> poster = PosterModel().obs;
   RxList<TagModel> tagsList = RxList();
   RxList<ArticleModel> topVisitedList = RxList();

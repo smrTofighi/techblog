@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:tech_blog_app/views/widgets/component.dart';
-import 'package:tech_blog_app/controllers/home/home_view_controller.dart';
+import 'package:tech_blog_app/controllers/home/home_page_controller.dart';
 import 'package:tech_blog_app/gen/assets.gen.dart';
 import 'package:tech_blog_app/models/fake_data.dart';
 import '../../../controllers/articles/article_list_controller.dart';
@@ -17,7 +17,7 @@ import '../articles/article_list_page.dart';
 class HomePage extends StatelessWidget {
   HomePage({Key? key, required this.textTheme}) : super(key: key);
   final TextTheme textTheme;
-  HomeViewController homeViewController = Get.put(HomeViewController());
+  HomePageController homeViewController = Get.put(HomePageController());
   ArticleSingleController articleSingleController =
       Get.put(ArticleSingleController());
   ArticleListController articleListController =
