@@ -21,6 +21,7 @@ class ManageArticleSinglePage extends StatelessWidget {
   FileController fileController = Get.put(FileController());
 
   ManageArticleSinglePage({Key? key}) : super(key: key);
+
   getTile() {
     Get.defaultDialog(
       title: 'عنوان مقاله',
@@ -210,13 +211,41 @@ class ManageArticleSinglePage extends StatelessWidget {
                     onPressed: () {
                       choiceCatsBottomSheet(textTheme);
                     }),
-                // tagsList(textTheme),
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                      vertical: 8.0, horizontal: Dimens.bodyMargin / 2),
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: Text(
+                      manageArticleController.articleInfoModel.value.catName ==
+                              null
+                          ? 'هیچ دسته بندی انتخاب نشده است'
+                          : manageArticleController
+                              .articleInfoModel.value.catName!,
+                      style: const TextStyle(
+                          fontWeight: FontWeight.w700, fontSize: 20),
+                      maxLines: 2,
+                    ),
+                  ),
+                ),
                 const SizedBox(
                   height: 25,
                 )
               ],
             ),
           ),
+        ),
+        bottomNavigationBar: Container(
+          padding: const EdgeInsets.fromLTRB(12, 0, 12, 12),
+          width: Dimens.width,
+          height: 45,
+          child: ElevatedButton(
+              onPressed: () async {
+                await Get.find<ManageArticleController>().storeArticle();
+              },
+              child: Text(Get.find<ManageArticleController>().loading.value
+                  ? 'در حال ارسال'
+                  : 'ارسال مطلب')),
         ),
       ),
     );
@@ -231,7 +260,17 @@ class ManageArticleSinglePage extends StatelessWidget {
         itemBuilder: (context, index) => Padding(
           padding: const EdgeInsets.all(8.0),
           child: InkWell(
-            onTap: () async {},
+            onTap: () async {
+              Get.find<ManageArticleController>()
+                  .articleInfoModel
+                  .update((val) {
+                val?.catId = Get.find<HomePageController>().tagsList[index].id;
+                val?.catName =
+                    Get.find<HomePageController>().tagsList[index].title;
+              });
+
+              Get.back();
+            },
             child: Container(
               height: 25,
               decoration: const BoxDecoration(

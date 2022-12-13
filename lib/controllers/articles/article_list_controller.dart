@@ -17,8 +17,8 @@ class ArticleListController extends GetxController {
   getList() async {
     loading.value = true;
     var userId = GetStorage().read(StorageKey.userid);
-    var response =
-        await DioService().getMethod(ApiConstant.getArticleList + userId);
+    var response = await DioService()
+        .getMethod(ApiConstant.getArticleList + userId.toString());
     if (response.statusCode == 200) {
       response.data.forEach((element) {
         articleList.add(ArticleModel.fromJson(element));

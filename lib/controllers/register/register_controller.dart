@@ -27,6 +27,8 @@ class RegisterController extends GetxController {
     email = emailTextEditingController.text;
     userId = response.data['user_id'];
     debugPrint(response);
+    debugPrint(response.data['user_id'].toString());
+    debugPrint(userId.toString());
   }
 
   verify() async {

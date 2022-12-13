@@ -1,6 +1,10 @@
+import 'dart:developer';
+
+import 'package:dio/dio.dart' as dio;
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:tech_blog_app/controllers/file_controller.dart';
 import 'package:tech_blog_app/models/article_info_model.dart';
 import 'package:tech_blog_app/models/article_model.dart';
 import 'package:tech_blog_app/models/tag_model.dart';
@@ -43,5 +47,22 @@ class ManageArticleController extends GetxController {
       });
       loading.value = false;
     }
+  }
+
+  storeArticle() {
+    loading.value = true;
+    Map<String, dynamic> map = {
+      ApiArticleKeyConstant.title: articleInfoModel.value.title,
+      ApiArticleKeyConstant.content: articleInfoModel.value.content,
+      ApiArticleKeyConstant.catId: articleInfoModel.value.catId,
+      ApiArticleKeyConstant.userId: GetStorage().read(StorageKey.userid),
+      ApiArticleKeyConstant.image: dio.MultipartFile.fromFile(
+          Get.find<FileController>().file.value.path!),
+      ApiArticleKeyConstant.command: "store",
+      ApiArticleKeyConstant.tagList: [],
+    };
+    var response = DioService().postMethod(map, ApiConstant.postArticle);
+    log(response.toString());
+    loading.value = false;
   }
 }

@@ -16,8 +16,7 @@ class PadcastModel {
   PadcastModel.fromJson(Map<String, dynamic> element) {
     id = element['id'];
     title = element['title'];
-    poster =
-        'https://techblog.sasansafari.com/Techblog/api' + element['poster'];
+    poster = 'https://techblog.sasansafari.com' + element['poster'];
     publisher = element['publisher'];
     view = element['view'];
     createdAt = element['created_at'];
