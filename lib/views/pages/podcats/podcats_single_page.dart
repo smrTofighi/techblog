@@ -148,6 +148,8 @@ class PodcatsSinglePage extends StatelessWidget {
               EdgeInsets.fromLTRB(Dimens.bodyMargin, 0, Dimens.bodyMargin, 12),
           child: LinearPercentIndicator(
             percent: 1.0,
+            backgroundColor: Colors.white,
+            
           ),
         ),
       ),
