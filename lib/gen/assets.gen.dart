@@ -27,6 +27,20 @@ class $AssetsIconsGen {
   /// File path: assets/icons/icon.png
   AssetGenImage get icon => const AssetGenImage('assets/icons/icon.png');
 
+  /// File path: assets/icons/play-back.png
+  AssetGenImage get playBack =>
+      const AssetGenImage('assets/icons/play-back.png');
+
+  /// File path: assets/icons/play-next.png
+  AssetGenImage get playNext =>
+      const AssetGenImage('assets/icons/play-next.png');
+
+  /// File path: assets/icons/play.png
+  AssetGenImage get play => const AssetGenImage('assets/icons/play.png');
+
+  /// File path: assets/icons/repeat.png
+  AssetGenImage get repeat => const AssetGenImage('assets/icons/repeat.png');
+
   /// File path: assets/icons/user.png
   AssetGenImage get user => const AssetGenImage('assets/icons/user.png');
 
@@ -34,8 +48,18 @@ class $AssetsIconsGen {
   AssetGenImage get w => const AssetGenImage('assets/icons/w.png');
 
   /// List of all assets
-  List<AssetGenImage> get values =>
-      [bluepad, bluepen, hashtagicon, icon, user, w];
+  List<AssetGenImage> get values => [
+        bluepad,
+        bluepen,
+        hashtagicon,
+        icon,
+        playBack,
+        playNext,
+        play,
+        repeat,
+        user,
+        w
+      ];
 }
 
 class $AssetsImagesGen {

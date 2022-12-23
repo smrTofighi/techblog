@@ -6,6 +6,7 @@ import 'package:percent_indicator/percent_indicator.dart';
 import 'package:tech_blog_app/core/styles/text_style.dart';
 import 'package:tech_blog_app/core/values/decorations.dart';
 import 'package:tech_blog_app/core/values/dimens.dart';
+import 'package:tech_blog_app/core/values/icons.dart';
 
 import '../../../core/values/colors.dart';
 import '../../../gen/assets.gen.dart';
@@ -141,17 +142,50 @@ class PodcatsSinglePage extends StatelessWidget {
           ),
         ),
         bottomNavigationBar: Container(
-          width: Dimens.width,
-          height: Dimens.height / 8,
-          decoration: MyDecoration.mainGradiant,
-          margin:
-              EdgeInsets.fromLTRB(Dimens.bodyMargin, 0, Dimens.bodyMargin, 12),
-          child: LinearPercentIndicator(
-            percent: 1.0,
-            backgroundColor: Colors.white,
-            
-          ),
-        ),
+            width: Dimens.width,
+            height: Dimens.height / 8,
+            decoration: MyDecoration.mainGradiant,
+            margin: EdgeInsets.fromLTRB(
+                Dimens.bodyMargin, 0, Dimens.bodyMargin, 12),
+            padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                LinearPercentIndicator(
+                  percent: 0.75,
+                  backgroundColor: Colors.white,
+                  progressColor: Colors.orange,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    ImageIcon(
+                      MyIcon.next,
+                      color: Colors.white,
+                      size: 14,
+                    ),
+                    ImageIcon(
+                      MyIcon.play,
+                      color: Colors.white,
+                      size: 36,
+                    ),
+                    ImageIcon(
+                      MyIcon.back,
+                      color: Colors.white,
+                      size: 14,
+                    ),
+                    const SizedBox(
+                      width: 32.0,
+                    ),
+                    ImageIcon(
+                      MyIcon.repeat,
+                      color: Colors.white,
+                      size: 24,
+                    ),
+                  ],
+                )
+              ],
+            )),
       ),
     );
   }

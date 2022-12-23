@@ -1,11 +1,11 @@
-class PadcastModel {
+class PodcastModel {
   String? id;
   String? title;
   String? poster;
   String? publisher;
   String? view;
   String? createdAt;
-  PadcastModel(
+  PodcastModel(
       {required this.id,
       required this.title,
       required this.poster,
@@ -13,7 +13,7 @@ class PadcastModel {
       required this.view,
       required this.createdAt});
 
-  PadcastModel.fromJson(Map<String, dynamic> element) {
+  PodcastModel.fromJson(Map<String, dynamic> element) {
     id = element['id'];
     title = element['title'];
     poster = 'https://techblog.sasansafari.com' + element['poster'];

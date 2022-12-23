@@ -5,6 +5,7 @@ import 'package:tech_blog_app/views/pages/articles/article_single_page.dart';
 import 'package:tech_blog_app/views/pages/articles/manage_article_page.dart';
 import 'package:tech_blog_app/views/pages/articles/manage_article_single_page.dart';
 import 'package:tech_blog_app/views/pages/main/main_page.dart';
+import 'package:tech_blog_app/views/pages/podcats/podcats_single_page.dart';
 
 List<GetPage> routes = [
   GetPage(
@@ -23,4 +24,7 @@ List<GetPage> routes = [
       name: NameRoutes.routeManageArticleSinglePage,
       page: () => ManageArticleSinglePage(),
       binding: ArticleManagerBinding()),
+  GetPage(
+      name: NameRoutes.routePodcastSinglePage,
+      page: () => const PodcatsSinglePage())
 ];

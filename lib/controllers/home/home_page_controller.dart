@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import 'package:tech_blog_app/core/values/api_constant.dart';
 import 'package:tech_blog_app/models/article_model.dart';
-import 'package:tech_blog_app/models/padcats_model.dart';
+import 'package:tech_blog_app/models/podcats_model.dart';
 import 'package:tech_blog_app/models/poster_model.dart';
 import 'package:tech_blog_app/models/tag_model.dart';
 import 'package:tech_blog_app/services/dio_service.dart';
@@ -10,7 +10,7 @@ class HomePageController extends GetxController {
   Rx<PosterModel> poster = PosterModel().obs;
   RxList<TagModel> tagsList = RxList();
   RxList<ArticleModel> topVisitedList = RxList();
-  RxList<PadcastModel> topPadcasts = RxList();
+  RxList<PodcastModel> topPadcasts = RxList();
   RxBool loading = false.obs;
   @override
   void onInit() {
@@ -27,7 +27,7 @@ class HomePageController extends GetxController {
       });
 
       response.data['top_podcasts'].forEach((element) {
-        topPadcasts.add(PadcastModel.fromJson(element));
+        topPadcasts.add(PodcastModel.fromJson(element));
       });
 
       response.data['tags'].forEach((element) {
