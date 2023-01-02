@@ -3,20 +3,30 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:percent_indicator/percent_indicator.dart';
+import 'package:tech_blog_app/controllers/podcasts/podcast_single_controller.dart';
 import 'package:tech_blog_app/core/styles/text_style.dart';
 import 'package:tech_blog_app/core/values/decorations.dart';
 import 'package:tech_blog_app/core/values/dimens.dart';
 import 'package:tech_blog_app/core/values/icons.dart';
+import 'package:tech_blog_app/models/podcats_model.dart';
 
 import '../../../core/values/colors.dart';
 import '../../../gen/assets.gen.dart';
 
+// ignore: must_be_immutable
 class PodcatsSinglePage extends StatelessWidget {
-  const PodcatsSinglePage({Key? key}) : super(key: key);
+  late PodcastSingleController podcastSingleController;
+  late PodcastModel podcastModel;
+  PodcatsSinglePage({Key? key}) : super(key: key) {
+    podcastModel = Get.arguments;
+    podcastSingleController =
+        Get.put(PodcastSingleController(id: podcastModel.id));
+  }
 
   @override
   Widget build(BuildContext context) {
-    var textTheme = Theme.of(context).textTheme;
+    debugPrint(podcastSingleController.id);
+    debugPrint(podcastSingleController.podcastFileList.toString());
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
@@ -24,18 +34,24 @@ class PodcatsSinglePage extends StatelessWidget {
             children: [
               Stack(
                 children: [
-                  CachedNetworkImage(
-                    imageUrl: 'articleSingleController',
-                    imageBuilder: (context, imageProvider) =>
-                        Image(image: imageProvider),
-                    placeholder: (context, url) => const Center(
-                      child: SpinKitDoubleBounce(
-                        color: SolidColors.primery,
-                        size: 32,
+                  SizedBox(
+                    width: Dimens.width,
+                    height: Dimens.height / 2.7,
+                    child: CachedNetworkImage(
+                      imageUrl: podcastModel.poster!,
+                      imageBuilder: (context, imageProvider) => Image(
+                        image: imageProvider,
+                        fit: BoxFit.fill,
                       ),
+                      placeholder: (context, url) => const Center(
+                        child: SpinKitDoubleBounce(
+                          color: SolidColors.primery,
+                          size: 32,
+                        ),
+                      ),
+                      errorWidget: (context, url, error) =>
+                          Image.asset(Assets.images.posterTest.path),
                     ),
-                    errorWidget: (context, url, error) =>
-                        Image.asset(Assets.images.posterTest.path),
                   ),
                   Positioned(
                     left: 0,
@@ -82,12 +98,12 @@ class PodcatsSinglePage extends StatelessWidget {
                   )
                 ],
               ),
-              const Padding(
-                padding: EdgeInsets.all(8.0),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
                 child: Align(
                   alignment: Alignment.centerRight,
                   child: Text(
-                    'محمدتوفیقی',
+                    podcastModel.title!,
                     style: MyTextStyle.bigTitle,
                     maxLines: 2,
                   ),
@@ -104,39 +120,48 @@ class PodcatsSinglePage extends StatelessWidget {
                     const SizedBox(
                       width: 16,
                     ),
-                    const Text(
-                      'ساسان صفری',
+                    Text(
+                      podcastModel.publisher!,
                       style: MyTextStyle.podcatsPart,
                     )
                   ],
                 ),
               ),
-              ListView.builder(
-                shrinkWrap: true,
-                itemBuilder: (context, index) => Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      ImageIcon(
-                        Image.asset(Assets.icons.bluepad.path).image,
-                        color: SolidColors.seeMore,
-                        size: 20,
-                      ),
-                      const SizedBox(
-                        width: 12,
-                      ),
-                      const Text('بخش اول: دوستت دارم',
-                          style: MyTextStyle.podcatsPart),
-                      const Spacer(),
-                      const Text(
-                        '20:40',
-                        style: MyTextStyle.podcastTime,
-                      )
-                    ],
+              Obx(
+                () => ListView.builder(
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) => Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        ImageIcon(
+                          Image.asset(Assets.icons.bluepad.path).image,
+                          color: SolidColors.seeMore,
+                          size: 20,
+                        ),
+                        const SizedBox(
+                          width: 12,
+                        ),
+                        SizedBox(
+                          width: Dimens.width / 1.3,
+                          child: Text(
+                              podcastSingleController
+                                  .podcastFileList[index].title!,
+                              style: MyTextStyle.podcatsPart),
+                        ),
+                        const Spacer(),
+                        Text(
+                          podcastSingleController.podcastFileList[index].lenght
+                                  .toString() +
+                              ':00',
+                          style: MyTextStyle.podcastTime,
+                        )
+                      ],
+                    ),
                   ),
+                  itemCount: podcastSingleController.podcastFileList.length,
                 ),
-                itemCount: 4,
               )
             ],
           ),

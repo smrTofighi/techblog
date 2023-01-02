@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import '../values/colors.dart';
 
 class MyTextStyle {
-
   MyTextStyle._();
   static const TextStyle appBarTitle = TextStyle(
       fontFamily: 'Samim',

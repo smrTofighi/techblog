@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
+import 'package:tech_blog_app/routes/pages.dart';
 import 'package:tech_blog_app/views/widgets/component.dart';
 import 'package:tech_blog_app/controllers/home/home_page_controller.dart';
 import 'package:tech_blog_app/gen/assets.gen.dart';
@@ -17,7 +18,7 @@ import '../articles/article_list_page.dart';
 class HomePage extends StatelessWidget {
   HomePage({Key? key, required this.textTheme}) : super(key: key);
   final TextTheme textTheme;
-  HomePageController homeViewController = Get.put(HomePageController());
+  HomePageController homePageController = Get.put(HomePageController());
   ArticleSingleController articleSingleController =
       Get.put(ArticleSingleController());
   ArticleListController articleListController =
@@ -29,7 +30,7 @@ class HomePage extends StatelessWidget {
         child: Obx(
           () => Padding(
               padding: const EdgeInsets.only(top: 16.0),
-              child: homeViewController.loading.value == false
+              child: homePageController.loading.value == false
                   ? Column(
                       children: [
                         //? -------------------------
@@ -116,7 +117,7 @@ class HomePage extends StatelessWidget {
                 return InkWell(
                   onTap: () {
                     articleSingleController.getArticleInfo(
-                        homeViewController.topVisitedList[index].id);
+                        homePageController.topVisitedList[index].id);
                   },
                   child: Padding(
                     padding: EdgeInsets.only(
@@ -131,7 +132,7 @@ class HomePage extends StatelessWidget {
                             child: Stack(
                               children: [
                                 CachedNetworkImage(
-                                  imageUrl: homeViewController
+                                  imageUrl: homePageController
                                       .topVisitedList[index].image!,
                                   imageBuilder: ((context, imageProvider) =>
                                       Container(
@@ -177,14 +178,14 @@ class HomePage extends StatelessWidget {
                                         MainAxisAlignment.spaceAround,
                                     children: [
                                       Text(
-                                        homeViewController
+                                        homePageController
                                             .topVisitedList[index].author!,
                                         style: textTheme.subtitle1,
                                       ),
                                       Row(
                                         children: [
                                           Text(
-                                            homeViewController
+                                            homePageController
                                                 .topVisitedList[index].view!,
                                             style: textTheme.subtitle1,
                                           ),
@@ -208,7 +209,7 @@ class HomePage extends StatelessWidget {
                         SizedBox(
                           width: Get.width / 2.4,
                           child: Text(
-                            homeViewController.topVisitedList[index].title!,
+                            homePageController.topVisitedList[index].title!,
                             overflow: TextOverflow.ellipsis,
                             maxLines: 2,
                           ),
@@ -220,7 +221,7 @@ class HomePage extends StatelessWidget {
               },
 
               //? --------------------
-              itemCount: homeViewController.topVisitedList.length,
+              itemCount: homePageController.topVisitedList.length,
               scrollDirection: Axis.horizontal,
             )),
       ),
@@ -233,68 +234,76 @@ class HomePage extends StatelessWidget {
       child: Obx(
         () => ListView.builder(
           itemBuilder: (context, index) {
-            return Padding(
-              padding:
-                  EdgeInsets.only(right: index == 0 ? Dimens.bodyMargin : 15),
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: SizedBox(
-                      height: Get.height / 5.3,
+            return GestureDetector(
+              onTap: () {
+                Get.toNamed(NameRoutes.routePodcastSinglePage,
+                    arguments: homePageController.topPadcasts[index]);
+              },
+              child: Padding(
+                padding:
+                    EdgeInsets.only(right: index == 0 ? Dimens.bodyMargin : 15),
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: SizedBox(
+                        height: Get.height / 5.3,
+                        width: Get.width / 2.4,
+                        child: CachedNetworkImage(
+                          imageUrl:
+                              homePageController.topPadcasts[index].poster!,
+                          //? ----------------------
+
+                          imageBuilder: ((context, imageProvider) => Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: const BorderRadius.all(
+                                    Radius.circular(16.0),
+                                  ),
+                                  image: DecorationImage(
+                                    image: imageProvider,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              )),
+
+                          //? ---------------------
+
+                          placeholder: (context, url) =>
+                              const SpinKitFoldingCube(
+                            color: SolidColors.primery,
+                            size: 32.0,
+                          ),
+                          //? ---------------------
+
+                          errorWidget: (context, url, error) => const Icon(
+                            Icons.image_not_supported_outlined,
+                            size: 50.0,
+                            color: Colors.grey,
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
                       width: Get.width / 2.4,
-                      child: CachedNetworkImage(
-                        imageUrl: homeViewController.topPadcasts[index].poster!,
-                        //? ----------------------
-
-                        imageBuilder: ((context, imageProvider) => Container(
-                              decoration: BoxDecoration(
-                                borderRadius: const BorderRadius.all(
-                                  Radius.circular(16.0),
-                                ),
-                                image: DecorationImage(
-                                  image: imageProvider,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            )),
-
-                        //? ---------------------
-
-                        placeholder: (context, url) => const SpinKitFoldingCube(
-                          color: SolidColors.primery,
-                          size: 32.0,
+                      child: Align(
+                        child: Text(
+                          homePageController.topPadcasts[index].title!,
+                          style: const TextStyle(
+                              fontWeight: FontWeight.w700, fontSize: 16),
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 2,
                         ),
-                        //? ---------------------
-
-                        errorWidget: (context, url, error) => const Icon(
-                          Icons.image_not_supported_outlined,
-                          size: 50.0,
-                          color: Colors.grey,
-                        ),
+                        alignment: Alignment.center,
                       ),
                     ),
-                  ),
-                  SizedBox(
-                    width: Get.width / 2.4,
-                    child: Align(
-                      child: Text(
-                        homeViewController.topPadcasts[index].title!,
-                        style: const TextStyle(
-                            fontWeight: FontWeight.w700, fontSize: 16),
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 2,
-                      ),
-                      alignment: Alignment.center,
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             );
           },
 
           //? --------------------
-          itemCount: homeViewController.topPadcasts.length,
+          itemCount: homePageController.topPadcasts.length,
           scrollDirection: Axis.horizontal,
         ),
       ),
@@ -308,7 +317,7 @@ class HomePage extends StatelessWidget {
           width: Get.width / 1.19,
           height: Get.height / 4.2,
           child: CachedNetworkImage(
-            imageUrl: homeViewController.poster.value.image!,
+            imageUrl: homePageController.poster.value.image!,
             imageBuilder: (context, imageProvider) => Container(
               decoration: BoxDecoration(
                 borderRadius: const BorderRadius.all(
@@ -369,7 +378,7 @@ class HomePage extends StatelessWidget {
                 ],
               ),
               Text(
-                homeViewController.poster.value.title!,
+                homePageController.poster.value.title!,
                 style: textTheme.headline1,
               ),
             ],
@@ -387,8 +396,8 @@ class HomePage extends StatelessWidget {
           return InkWell(
             onTap: () async {
               await articleListController.getArticleListWithTagsId(
-                  homeViewController.tagsList[index].id!);
-              var titleAppBar = homeViewController.tagsList[index].title!;
+                  homePageController.tagsList[index].id!);
+              var titleAppBar = homePageController.tagsList[index].title!;
               Get.to(ArticleListPage(
                 titleAppBar: titleAppBar,
               ));
@@ -399,11 +408,11 @@ class HomePage extends StatelessWidget {
                 child: MainTags(
                   textTheme: textTheme,
                   index: index,
-                  listItem: homeViewController.tagsList,
+                  listItem: homePageController.tagsList,
                 )),
           );
         },
-        itemCount: homeViewController.tagsList.length,
+        itemCount: homePageController.tagsList.length,
         scrollDirection: Axis.horizontal,
       ),
     );

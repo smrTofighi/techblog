@@ -25,6 +25,7 @@ List<GetPage> routes = [
       page: () => ManageArticleSinglePage(),
       binding: ArticleManagerBinding()),
   GetPage(
-      name: NameRoutes.routePodcastSinglePage,
-      page: () => const PodcatsSinglePage())
+    name: NameRoutes.routePodcastSinglePage,
+    page: () => PodcatsSinglePage(),
+  ),
 ];

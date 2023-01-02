@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:tech_blog_app/controllers/articles/manage_article_controller.dart';
 import 'package:tech_blog_app/controllers/podcasts/podcast_single_controller.dart';
+import 'package:tech_blog_app/controllers/podcasts/podcats_list_controller.dart';
 import 'package:tech_blog_app/controllers/register/register_controller.dart';
 import '../controllers/articles/article_list_controller.dart';
 import '../controllers/articles/article_single_controller.dart';
@@ -31,6 +32,6 @@ class RegisterBinding implements Bindings {
 class PodcastBinding implements Bindings {
   @override
   void dependencies() {
-    Get.lazyPut(() => PodcastSingleController());
+    Get.lazyPut(() => PodcastListController());
   }
 }

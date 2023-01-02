@@ -17,7 +17,7 @@ class PodcastModel {
     id = element['id'];
     title = element['title'];
     poster = 'https://techblog.sasansafari.com' + element['poster'];
-    publisher = element['publisher'];
+    publisher = element['author'];
     view = element['view'];
     createdAt = element['created_at'];
   }

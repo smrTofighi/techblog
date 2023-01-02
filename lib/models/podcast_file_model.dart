@@ -12,6 +12,6 @@ class PodcastFileModel {
     podcastId = element["podcast_id"];
     file = element["file"];
     title = element["title"];
-    lenght = element["lenght"];
+    lenght = element["length"];
   }
 }

@@ -13,7 +13,7 @@ class ApiConstant {
   static const postRegister = baseUrl + 'register/action.php';
   static const postArticle = baseUrl + 'article/post.php';
   static const podcastFiles =
-      baseUrl + "podcast/get.php?command=get_files&podacts_id=";
+      baseUrl + "podcast/get.php?command=get_files&podcats_id=";
   static const newPodcast = baseUrl + "podcast/get.php?command=new&user_id=";
 }
 
