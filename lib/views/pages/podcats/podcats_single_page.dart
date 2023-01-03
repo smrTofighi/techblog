@@ -9,6 +9,7 @@ import 'package:tech_blog_app/core/values/decorations.dart';
 import 'package:tech_blog_app/core/values/dimens.dart';
 import 'package:tech_blog_app/core/values/icons.dart';
 import 'package:tech_blog_app/models/podcats_model.dart';
+import 'package:tech_blog_app/views/widgets/loading.dart';
 
 import '../../../core/values/colors.dart';
 import '../../../gen/assets.gen.dart';
@@ -128,40 +129,44 @@ class PodcatsSinglePage extends StatelessWidget {
                 ),
               ),
               Obx(
-                () => ListView.builder(
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) => Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        ImageIcon(
-                          Image.asset(Assets.icons.bluepad.path).image,
-                          color: SolidColors.seeMore,
-                          size: 20,
+                () => podcastSingleController.loading.value
+                    ? const Center(child: Loading())
+                    : ListView.builder(
+                        shrinkWrap: true,
+                        itemBuilder: (context, index) => Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              ImageIcon(
+                                Image.asset(Assets.icons.bluepad.path).image,
+                                color: SolidColors.seeMore,
+                                size: 20,
+                              ),
+                              const SizedBox(
+                                width: 12,
+                              ),
+                              SizedBox(
+                                width: Dimens.width / 1.3,
+                                child: Text(
+                                    podcastSingleController
+                                        .podcastFileList[index].title!,
+                                    style: MyTextStyle.podcatsPart),
+                              ),
+                              const Spacer(),
+                              Text(
+                                podcastSingleController
+                                        .podcastFileList[index].lenght
+                                        .toString() +
+                                    ':00',
+                                style: MyTextStyle.podcastTime,
+                              )
+                            ],
+                          ),
                         ),
-                        const SizedBox(
-                          width: 12,
-                        ),
-                        SizedBox(
-                          width: Dimens.width / 1.3,
-                          child: Text(
-                              podcastSingleController
-                                  .podcastFileList[index].title!,
-                              style: MyTextStyle.podcatsPart),
-                        ),
-                        const Spacer(),
-                        Text(
-                          podcastSingleController.podcastFileList[index].lenght
-                                  .toString() +
-                              ':00',
-                          style: MyTextStyle.podcastTime,
-                        )
-                      ],
-                    ),
-                  ),
-                  itemCount: podcastSingleController.podcastFileList.length,
-                ),
+                        itemCount:
+                            podcastSingleController.podcastFileList.length,
+                      ),
               )
             ],
           ),
