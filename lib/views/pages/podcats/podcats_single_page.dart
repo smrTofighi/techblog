@@ -16,18 +16,17 @@ import '../../../gen/assets.gen.dart';
 
 // ignore: must_be_immutable
 class PodcatsSinglePage extends StatelessWidget {
-  late PodcastSingleController podcastSingleController;
+  late PodcastSingleController podcastController;
   late PodcastModel podcastModel;
   PodcatsSinglePage({Key? key}) : super(key: key) {
     podcastModel = Get.arguments;
-    podcastSingleController =
-        Get.put(PodcastSingleController(id: podcastModel.id));
+    podcastController = Get.put(PodcastSingleController(id: podcastModel.id));
   }
 
   @override
   Widget build(BuildContext context) {
-    debugPrint(podcastSingleController.id);
-    debugPrint(podcastSingleController.podcastFileList.toString());
+    debugPrint(podcastController.id);
+    debugPrint(podcastController.podcastFileList.toString());
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
@@ -129,93 +128,142 @@ class PodcatsSinglePage extends StatelessWidget {
                 ),
               ),
               Obx(
-                () => podcastSingleController.loading.value
-                    ? const Center(child: Loading())
-                    : ListView.builder(
-                        shrinkWrap: true,
-                        itemBuilder: (context, index) => Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              ImageIcon(
-                                Image.asset(Assets.icons.bluepad.path).image,
-                                color: SolidColors.seeMore,
-                                size: 20,
-                              ),
-                              const SizedBox(
-                                width: 12,
-                              ),
-                              SizedBox(
-                                width: Dimens.width / 1.3,
-                                child: Text(
-                                    podcastSingleController
-                                        .podcastFileList[index].title!,
-                                    style: MyTextStyle.podcatsPart),
-                              ),
-                              const Spacer(),
-                              Text(
-                                podcastSingleController
-                                        .podcastFileList[index].lenght
-                                        .toString() +
-                                    ':00',
-                                style: MyTextStyle.podcastTime,
-                              )
-                            ],
+                () => ListView.builder(
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) => Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: GestureDetector(
+                      onTap: () async {
+                        await podcastController.player
+                            .seek(Duration.zero, index: index);
+                        podcastController.currentIndex.value =
+                            podcastController.player.currentIndex!;
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          ImageIcon(
+                            Image.asset(Assets.icons.bluepad.path).image,
+                            color: SolidColors.seeMore,
+                            size: 20,
                           ),
-                        ),
-                        itemCount:
-                            podcastSingleController.podcastFileList.length,
+                          const SizedBox(
+                            width: 12,
+                          ),
+                          SizedBox(
+                            width: Dimens.width / 1.3,
+                            child: Obx(
+                              () => Text(
+                                  podcastController
+                                      .podcastFileList[index].title!,
+                                  style: podcastController.currentIndex.value ==
+                                          index
+                                      ? MyTextStyle.podcatsPartOn
+                                      : MyTextStyle.podcatsPart),
+                            ),
+                          ),
+                          const Spacer(),
+                          Text(
+                            podcastController.podcastFileList[index].lenght
+                                    .toString() +
+                                ':00',
+                            style: MyTextStyle.podcastTime,
+                          )
+                        ],
                       ),
+                    ),
+                  ),
+                  itemCount: podcastController.podcastFileList.length,
+                ),
               )
             ],
           ),
         ),
-        bottomNavigationBar: Container(
-            width: Dimens.width,
-            height: Dimens.height / 8,
-            decoration: MyDecoration.mainGradiant,
-            margin: EdgeInsets.fromLTRB(
-                Dimens.bodyMargin, 0, Dimens.bodyMargin, 12),
-            padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                LinearPercentIndicator(
-                  percent: 0.75,
-                  backgroundColor: Colors.white,
-                  progressColor: Colors.orange,
+        bottomNavigationBar:
+            BottomNavigation(podcastController: podcastController),
+      ),
+    );
+  }
+}
+
+class BottomNavigation extends StatelessWidget {
+  const BottomNavigation({
+    Key? key,
+    required this.podcastController,
+  }) : super(key: key);
+
+  final PodcastSingleController podcastController;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: Dimens.width,
+      height: Dimens.height / 8,
+      decoration: MyDecoration.mainGradiant,
+      margin: EdgeInsets.fromLTRB(Dimens.bodyMargin, 0, Dimens.bodyMargin, 12),
+      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          LinearPercentIndicator(
+            percent: 0.75,
+            backgroundColor: Colors.white,
+            progressColor: Colors.orange,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              IconButton(
+                onPressed: () async {
+                  await podcastController.player.seekToNext();
+                  podcastController.currentIndex.value =
+                      podcastController.player.currentIndex!;
+                },
+                icon: ImageIcon(
+                  MyIcon.next,
+                  color: Colors.white,
+                  size: 14,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    ImageIcon(
-                      MyIcon.next,
-                      color: Colors.white,
-                      size: 14,
-                    ),
-                    ImageIcon(
-                      MyIcon.play,
-                      color: Colors.white,
-                      size: 36,
-                    ),
-                    ImageIcon(
-                      MyIcon.back,
-                      color: Colors.white,
-                      size: 14,
-                    ),
-                    const SizedBox(
-                      width: 32.0,
-                    ),
-                    ImageIcon(
-                      MyIcon.repeat,
-                      color: Colors.white,
-                      size: 24,
-                    ),
-                  ],
-                )
-              ],
-            )),
+              ),
+              IconButton(
+                onPressed: () {
+                  podcastController.playState.value
+                      ? podcastController.player.stop()
+                      : podcastController.player.play();
+                  podcastController.playState.value =
+                      podcastController.player.playing;
+                  podcastController.currentIndex.value =
+                      podcastController.player.currentIndex!;
+                },
+                icon: Obx(
+                  () => Icon(podcastController.playState.value
+                      ? Icons.pause_circle_filled_rounded
+                      : Icons.play_circle_filled_rounded),
+                ),
+              ),
+              IconButton(
+                onPressed: () async {
+                  await podcastController.player.seekToPrevious();
+                  podcastController.currentIndex.value =
+                      podcastController.player.currentIndex!;
+                },
+                icon: ImageIcon(
+                  MyIcon.back,
+                  color: Colors.white,
+                  size: 14,
+                ),
+              ),
+              const SizedBox(
+                width: 32.0,
+              ),
+              ImageIcon(
+                MyIcon.repeat,
+                color: Colors.white,
+                size: 24,
+              ),
+            ],
+          )
+        ],
       ),
     );
   }

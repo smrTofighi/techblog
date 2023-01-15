@@ -6,21 +6,27 @@ import 'package:tech_blog_app/models/podcast_file_model.dart';
 import 'package:tech_blog_app/services/dio_service.dart';
 
 class PodcastSingleController extends GetxController {
-  @override
-  void onInit() async {
-    super.onInit();
-    await getPodcastFiles();
-    playList = ConcatenatingAudioSource(
-      useLazyPreparation: true,
-      children: [],
-    );
-  }
-
   var id;
   PodcastSingleController({required this.id});
   RxBool loading = false.obs;
   RxList<PodcastFileModel> podcastFileList = RxList();
   late var playList;
+  RxBool playState = false.obs;
+  final player = AudioPlayer();
+  RxInt currentIndex = 0.obs;
+  @override
+  void onInit() async {
+    super.onInit();
+
+    playList = ConcatenatingAudioSource(
+      useLazyPreparation: true,
+      children: [],
+    );
+    await getPodcastFiles();
+    await player.setAudioSource(playList,
+        initialIndex: 0, initialPosition: Duration.zero);
+  }
+
   getPodcastFiles() async {
     loading.value = true;
     var response = await DioService().getMethod(ApiConstant.podcastFiles + id);
@@ -30,7 +36,6 @@ class PodcastSingleController extends GetxController {
         podcastFileList.add(podcastFileModel);
         playList.add(AudioSource.uri(Uri.parse(podcastFileModel.file!)));
       }
-      debugPrint('finish');
       loading.value = false;
     }
   }

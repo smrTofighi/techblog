@@ -30,6 +30,8 @@ class MyTextStyle {
 
   static const TextStyle podcatsPart =
       TextStyle(fontSize: 12, fontWeight: FontWeight.bold);
+  static const TextStyle podcatsPartOn = TextStyle(
+      fontSize: 12, fontWeight: FontWeight.bold, color: Colors.orange);
   static const TextStyle podcastTime =
       TextStyle(fontSize: 12, color: Colors.grey);
 }
